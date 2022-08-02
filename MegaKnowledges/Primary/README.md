@@ -1,5 +1,5 @@
 
-## Primary
+<h2>Primary</h2>
 
 <table>
     <tr>

@@ -1,5 +1,5 @@
 
-## Support
+<h2>Support</h2>
 
 <table>
     <tr>

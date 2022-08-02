@@ -1,5 +1,5 @@
 
-## Military
+<h2>Military</h2>
 
 <table>
     <tr>

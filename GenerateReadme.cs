@@ -34,7 +34,7 @@ internal static class GenerateReadme
 
     private static string GenerateCategory(string category) =>
         $@"
-## {category}
+<h2>{category}</h2>
 
 <table>{ModContent.GetContent<MegaKnowledge>().Where(knowledge => knowledge.towerSet == category).OrderBy(knowledge => knowledge.Offset).Select(GenerateEntry).Join(delimiter: "")}
 </table>

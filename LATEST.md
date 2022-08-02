@@ -1,0 +1,2 @@
+- Updated for Mod Helper 3.0
+- Updated Super Monkey Mega Knowledge

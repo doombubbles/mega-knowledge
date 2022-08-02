@@ -3,8 +3,7 @@
 ### 1.1.0
 
 - Updated for Mod Helper 3.0
-- 
-
+- Updated Super Monkey Mega Knowledge
 
 ## Original
 

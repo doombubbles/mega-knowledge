@@ -1,6 +1,6 @@
 # All Mega Knowledge Effects
+<h2>Primary</h2>
 
-## Primary
 <table>
     <tr>
         <td width='15%' align='center'>
@@ -70,7 +70,7 @@
     </tr>
 </table>
         
-## Military
+<h2>Military</h2>
 
 <table>
     <tr>
@@ -152,7 +152,7 @@
     </tr>
 </table>
         
-## Magic
+<h2>Magic</h2>
 
 <table>
     <tr>
@@ -212,7 +212,7 @@
     </tr>
 </table>
         
-## Support
+<h2>Support</h2>
 
 <table>
     <tr>
