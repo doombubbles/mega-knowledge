@@ -1,3 +1,4 @@
+<img align='left' src='Icon.png'  height='90'>
 <a href='https://github.com/doombubbles/mega-knowledge/releases/latest/download/MegaKnowledge.dll'><img align='right' alt='Download' height='75' src='https://github.com/doombubbles/BTD6-Mods/blob/main/download.png?raw=true'></a>
 
 # Mega Knowledge
