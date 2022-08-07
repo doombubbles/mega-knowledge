@@ -58,16 +58,16 @@ namespace MegaKnowledge.MegaKnowledges.Magic
 
     public class SunAvatarIcon : ModBuffIcon
     {
-        public override SpriteReference IconReference => VanillaSprites.SunAvatarUpgradeIcon;
+        public override string Icon => VanillaSprites.SunAvatarUpgradeIcon;
     }
 
     public class RoboMonkeyIcon : ModBuffIcon
     {
-        public override SpriteReference IconReference => VanillaSprites.RoboMonkeyUpgradeIcon;
+        public override string Icon => VanillaSprites.RoboMonkeyUpgradeIcon;
     }
 
     public class DarkKnightIcon : ModBuffIcon
     {
-        public override SpriteReference IconReference => VanillaSprites.DarkKnightUpgradeIcon;
+        public override string Icon => VanillaSprites.DarkKnightUpgradeIcon;
     }
 }

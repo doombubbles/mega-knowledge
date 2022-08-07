@@ -10,7 +10,10 @@ namespace MegaKnowledge.MegaKnowledges.Support
     public class SpikeEmpowerment : MegaKnowledge
     {
         public override string TowerId => TowerType.SpikeFactory;
-        public override string Description => "Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.";
+
+        public override string Description =>
+            "Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.";
+
         public override int Offset => 400;
         public override bool TargetChanging => true;
 
@@ -45,8 +48,8 @@ namespace MegaKnowledge.MegaKnowledges.Support
             if (targetSelectedPointModel == null)
             {
                 var tspm = new TargetSelectedPointModel("TargetSelectedPointModel_", true,
-                    false, "4e88dd78c6e800d41a6df5b02d592082", .5f, "",
-                    false, false, "", true, null);
+                    false, CreatePrefabReference("4e88dd78c6e800d41a6df5b02d592082"), .5f, "",
+                    false, false, CreatePrefabReference(""), true, null);
                 model.GetAttackModel().AddBehavior(tspm);
             }
 

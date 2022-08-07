@@ -49,7 +49,7 @@ namespace MegaKnowledge.MegaKnowledges.Primary
                     sound.sound1, sound.sound2, sound.sound3, sound.sound4, sound.sound5);
                 projectileModel.AddBehavior(soundBehavior);
 
-                var eB = new CreateEffectOnExhaustedModel("CreateEffectOnExhaustedModel_SplodeyDarts", "", 0f, false,
+                var eB = new CreateEffectOnExhaustedModel("CreateEffectOnExhaustedModel_SplodeyDarts", CreatePrefabReference(""), 0f, false,
                     false, effect.effectModel);
                 projectileModel.AddBehavior(eB);
             }

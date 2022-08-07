@@ -42,8 +42,8 @@ namespace MegaKnowledge
 
                     var btn = newButton.GetComponentInChildren<KnowledgeSkillBtn>();
                     newButton.name = megaKnowledge.Name;
-                    var knowledgeModels = Game.instance.model.knowledgeSets
-                        .First(model => model.name == megaKnowledge.towerSet).GetKnowledgeModels();
+                    var knowledgeModels = Game.instance.model.allKnowledge
+                        .Where(model => model.category.ToString() == megaKnowledge.towerSet);
                     btn.ClickedEvent = new Action<KnowledgeSkillBtn>(skillBtn =>
                     {
                         var hasAll = true;

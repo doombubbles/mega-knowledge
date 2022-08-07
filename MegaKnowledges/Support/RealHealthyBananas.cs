@@ -18,7 +18,7 @@ namespace MegaKnowledge.MegaKnowledges.Support
             if (bonusLivesPerRoundModel == null)
             {
                 model.AddBehavior(new BonusLivesPerRoundModel("BonusLivesPerRoundModel_HealthyBananas", amount, 
-                    1.25f, "eb70b6823aec0644c81f873e94cb26cc"));
+                    1.25f, CreatePrefabReference("eb70b6823aec0644c81f873e94cb26cc")));
             }
             else
             {

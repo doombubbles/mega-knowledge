@@ -3,7 +3,6 @@ using System.Linq;
 using Assets.Scripts.Models;
 using Assets.Scripts.Models.Map;
 using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Scripts.Models.Towers.Mods;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.UI_New.InGame;
@@ -14,7 +13,6 @@ using BTD_Mod_Helper.Api.ModOptions;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using MegaKnowledge;
-using MegaKnowledge.MegaKnowledges.Support;
 using MelonLoader;
 using ModHelperData = MegaKnowledge.ModHelperData;
 

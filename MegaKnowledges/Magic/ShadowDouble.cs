@@ -5,6 +5,7 @@ using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Assets.Scripts.Models.Towers.Weapons.Behaviors;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.Display;
+using Assets.Scripts.Utils;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Extensions;
 
@@ -21,7 +22,7 @@ namespace MegaKnowledge.MegaKnowledges.Magic
             var attackModel = model.GetAttackModel();
             var weapon = attackModel.weapons[0];
             var newWeapon = weapon.Duplicate();
-            newWeapon.projectile.display = GetDisplayGUID<ShadowShuriken>();
+            newWeapon.projectile.display = CreatePrefabReference<ShadowShuriken>();
             weapon.AddBehavior(new FireAlternateWeaponModel("FireAlternateWeaponModel_", 1));
 
             newWeapon.AddBehavior(new FireWhenAlternateWeaponIsReadyModel("FireWhenAlternateWeaponIsReadyModel_", 1));
@@ -56,7 +57,7 @@ namespace MegaKnowledge.MegaKnowledges.Magic
     
     public class ShadowShuriken : ModDisplay
     {
-        public override string BaseDisplay =>
+        public override PrefabReference BaseDisplayReference =>
             Game.instance.model.GetTower(TowerType.NinjaMonkey).GetWeapon().projectile.display;
         
         public override void ModifyDisplayNode(UnityDisplayNode node)

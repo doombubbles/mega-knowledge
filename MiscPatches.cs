@@ -92,19 +92,19 @@ namespace MegaKnowledge
             {
                 if (__state > 0 && ModContent.GetInstance<SpikeEmpowerment>().Enabled)
                 {
-                    if (!SpikeInfo.ContainsKey(__instance.Id))
+                    if (!SpikeInfo.ContainsKey(__instance.Id.Id))
                     {
                         var projectileBehavior = __instance.projectileBehaviors.list.FirstOrDefault(b => b.TryCast<ArriveAtTarget>() != null);
                         if (projectileBehavior != null)
                         {
-                            SpikeInfo[__instance.Id] = (projectileBehavior.Cast<ArriveAtTarget>(), 0);
+                            SpikeInfo[__instance.Id.Id] = (projectileBehavior.Cast<ArriveAtTarget>(), 0);
                         }
                         else
                         {
                             return;
                         }
                     }
-                    var (arriveAtTarget, pierce) = SpikeInfo[__instance.Id];
+                    var (arriveAtTarget, pierce) = SpikeInfo[__instance.Id.Id];
                     var arriveAtTargetModel = arriveAtTarget.arriveModel;
                     if (!arriveAtTargetModel.filterCollisionWhileMoving && arriveAtTarget.GetPercThruMovement() < .99)
                     {
@@ -119,7 +119,7 @@ namespace MegaKnowledge
                         }
                     }
 
-                    SpikeInfo[__instance.Id] = (arriveAtTarget, pierce);
+                    SpikeInfo[__instance.Id.Id] = (arriveAtTarget, pierce);
                 }
             }
         }
@@ -131,9 +131,9 @@ namespace MegaKnowledge
             [HarmonyPostfix]
             internal static void Postfix(Projectile __instance)
             {
-                if (SpikeInfo.ContainsKey(__instance.Id))
+                if (SpikeInfo.ContainsKey(__instance.Id.Id))
                 {
-                    SpikeInfo.Remove(__instance.Id);
+                    SpikeInfo.Remove(__instance.Id.Id);
                 }
             }
         }

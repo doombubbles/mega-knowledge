@@ -1,2 +1,3 @@
 - Updated for Mod Helper 3.0
 - Updated Super Monkey Mega Knowledge
+- Fixes for BTD6 v32.0

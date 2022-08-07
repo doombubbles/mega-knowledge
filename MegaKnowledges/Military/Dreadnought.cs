@@ -36,7 +36,7 @@ namespace MegaKnowledge.MegaKnowledges.Military
                     projectileModel.scale = .75f;
                 }
 
-                projectileModel.display = "c840e245a0b1deb4284cfc3f953e16cf";
+                projectileModel.display = CreatePrefabReference("c840e245a0b1deb4284cfc3f953e16cf");
                 projectileModel.GetDamageModel().immuneBloonProperties = BloonProperties.None;
             }
         }
