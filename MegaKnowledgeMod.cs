@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data.Knowledge;
 using Assets.Scripts.Models;
 using Assets.Scripts.Models.Map;
 using Assets.Scripts.Models.Towers;
@@ -23,6 +24,8 @@ namespace MegaKnowledge
 {
     public class MegaKnowledgeMod : BloonsTD6Mod
     {
+        public static MelonPreferences_Category MegaKnowledgeCategory;
+
         public static readonly ModSettingBool OpOvertime = new(false)
         {
             description =
@@ -30,7 +33,7 @@ namespace MegaKnowledge
             icon = VanillaSprites.SentryGunUpgradeIcon,
             displayName = "OP Overtime"
         };
-        
+
         public static readonly ModSettingBool OpCrystalBall = new(false)
         {
             description =
@@ -63,6 +66,8 @@ namespace MegaKnowledge
                     }
                 }
             }
+
+            MegaKnowledgeCategory.SaveToFile(false);
         }
 
         private static void Reset(TowerModel towerModel)
@@ -85,7 +90,7 @@ namespace MegaKnowledge
         }
 
         [HarmonyPatch(typeof(GameModel), nameof(GameModel.CreateModded),
-            typeof(Il2CppSystem.Collections.Generic.List<string>), typeof(MapModel))]
+            typeof(Il2CppSystem.Collections.Generic.List<string>), typeof(ActiveRelicKnowledge), typeof(MapModel))]
         internal class GameModel_CreateModded
         {
             [HarmonyPrefix]

@@ -8,7 +8,6 @@ namespace MegaKnowledge
 {
     public abstract class MegaKnowledge : NamedModContent
     {
-        private static MelonPreferences_Category category;
         private MelonPreferences_Entry<bool> setting;
 
         public bool Enabled
@@ -28,11 +27,11 @@ namespace MegaKnowledge
 
         public override void Register()
         {
-            category ??= MelonPreferences.CreateCategory("MegaKnowledges");
+            MegaKnowledgeMod.MegaKnowledgeCategory ??= MelonPreferences.CreateCategory("MegaKnowledges");
 
             towerSet = Game.instance.model.GetTowerWithName(TowerId).towerSet;
 
-            setting = category.CreateEntry(Name, false, DisplayName, Description);
+            setting = MegaKnowledgeMod.MegaKnowledgeCategory.CreateEntry(Name, false, DisplayName, Description);
         }
 
         public abstract void Apply(TowerModel model);

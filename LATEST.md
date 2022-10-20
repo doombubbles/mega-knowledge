@@ -1,3 +1,2 @@
-- Updated for Mod Helper 3.0
-- Updated Super Monkey Mega Knowledge
-- Fixes for BTD6 v32.0
+- Fixed for BTD6 v33.0
+- Mega Knowledge choices save more often

@@ -49,7 +49,7 @@ namespace MegaKnowledge.MegaKnowledges.Support
             {
                 var tspm = new TargetSelectedPointModel("TargetSelectedPointModel_", true,
                     false, CreatePrefabReference("4e88dd78c6e800d41a6df5b02d592082"), .5f, "",
-                    false, false, CreatePrefabReference(""), true, null);
+                    false, false, CreatePrefabReference(""), true, null, false);
                 model.GetAttackModel().AddBehavior(tspm);
             }
 
