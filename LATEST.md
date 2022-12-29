@@ -1,2 +1,1 @@
-- Fixed for BTD6 v33.0
-- Mega Knowledge choices save more often
+- Fixed for BTD6 v34 / ML 0.6.0

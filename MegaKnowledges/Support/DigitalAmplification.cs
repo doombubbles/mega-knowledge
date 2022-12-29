@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Models.Towers;
+﻿using Il2CppAssets.Scripts.Models.Towers;
 using BTD_Mod_Helper.Extensions;
 
 namespace MegaKnowledge.MegaKnowledges.Support

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api;
+using Il2CppAssets.Scripts.Models.TowerSets;
 using MelonLoader;
+using static Il2CppAssets.Scripts.Models.TowerSets.TowerSet;
 
 namespace MegaKnowledge
 {
@@ -22,7 +24,7 @@ namespace MegaKnowledge
 
         public virtual bool TargetChanging => false;
 
-        public string towerSet;
+        public TowerSet towerSet;
 
 
         public override void Register()
@@ -38,10 +40,10 @@ namespace MegaKnowledge
 
         public string KnowledgeToCloneFrom => towerSet switch
         {
-            "Primary" => "MoreCash",
-            "Military" => "BigBloonSabotage",
-            "Magic" => "ManaShield",
-            "Support" => "BankDeposits",
+            Primary => "MoreCash",
+            Military => "BigBloonSabotage",
+            Magic => "ManaShield",
+            Support => "BankDeposits",
             _ => ""
         };
 

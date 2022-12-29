@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.Towers.Filters;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Unity;
+﻿using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 
@@ -41,7 +41,7 @@ namespace MegaKnowledge.MegaKnowledges.Primary
 
                 var behavior = new CreateProjectileOnExhaustFractionModel(
                     "CreateProjectileOnExhaustFractionModel_SplodeyDarts",
-                    pb.projectile, pb.emission, 1f, 1f, true);
+                    pb.projectile, pb.emission, 1f, 1f, true, false);
                 projectileModel.AddBehavior(behavior);
 
                 var soundBehavior = new CreateSoundOnProjectileExhaustModel(

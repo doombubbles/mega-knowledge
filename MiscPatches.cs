@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Simulation.Towers.Behaviors.Attack.Behaviors;
-using Assets.Scripts.Simulation.Towers.Projectiles;
-using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Simulation.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons.Behaviors;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Models.Towers;
 using MegaKnowledge.MegaKnowledges.Support;
-using static Assets.Scripts.Models.Towers.TowerType;
 
 namespace MegaKnowledge
 {
@@ -76,7 +76,7 @@ namespace MegaKnowledge
             [HarmonyPrefix]
             internal static void Prefix(Projectile __instance, ref float __state)
             {
-                if (__instance.emittedBy?.towerModel.baseId == SpikeFactory)
+                if (__instance.emittedBy?.towerModel.baseId == TowerType.SpikeFactory)
                 {
                     __state = __instance.pierce;
                 }

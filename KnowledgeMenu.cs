@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Unity.UI_New.Knowledge;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity.UI_New.Knowledge;
+using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Models.TowerSets;
 using UnityEngine;
 using UnityEngine.UI;
+using static Il2CppAssets.Scripts.Models.TowerSets.TowerSet;
 using Object = UnityEngine.Object;
 
 namespace MegaKnowledge
@@ -16,7 +19,7 @@ namespace MegaKnowledge
     {
         public static KnowledgeSkillTree knowledgeSkillTree;
 
-        public static readonly Dictionary<string, Dictionary<string, KnowledgeSkillBtn>> Buttons = new();
+        public static readonly Dictionary<TowerSet, Dictionary<string, KnowledgeSkillBtn>> Buttons = new();
 
         [HarmonyPatch(typeof(KnowledgeSkillTree), nameof(KnowledgeSkillTree.UpdateButtonStates))]
         internal class KnowledgeSkillTree_UpdateButtonStates
@@ -43,7 +46,7 @@ namespace MegaKnowledge
                     var btn = newButton.GetComponentInChildren<KnowledgeSkillBtn>();
                     newButton.name = megaKnowledge.Name;
                     var knowledgeModels = Game.instance.model.allKnowledge
-                        .Where(model => model.category.ToString() == megaKnowledge.towerSet);
+                        .Where(model => model.category.ToString() == megaKnowledge.towerSet.ToString());
                     btn.ClickedEvent = new Action<KnowledgeSkillBtn>(skillBtn =>
                     {
                         var hasAll = true;
@@ -66,11 +69,13 @@ namespace MegaKnowledge
                             foreach (var mkv in ModContent.GetContent<MegaKnowledge>().Where(mkv =>
                                          mkv.towerSet == megaKnowledge.towerSet))
                             {
+                                if (mkv == megaKnowledge) continue;
                                 mkv.Enabled = false;
                             }
                         }
 
-                        if (Input.GetKey(KeyCode.LeftAlt))
+                        if (Input.GetKey(KeyCode.LeftAlt) ||
+                            (megaKnowledge.Enabled && knowledgeSkillTree.currSelectedBtn == skillBtn))
                         {
                             megaKnowledge.Enabled = false;
                             skillBtn.SetState(KnowlegdeSkillBtnState.Available);
@@ -80,10 +85,13 @@ namespace MegaKnowledge
                             megaKnowledge.Enabled = true;
 
                             skillBtn.SetState(KnowlegdeSkillBtnState.Purchased);
-                            knowledgeSkillTree.BtnClicked(skillBtn);
-                            knowledgeSkillTree.selectedPanelTitleTxt.SetText(megaKnowledge.DisplayName);
-                            knowledgeSkillTree.selectedPanelDescTxt.SetText(megaKnowledge.Description);
                         }
+                        if (!Input.GetKey(KeyCode.LeftAlt))
+                        {
+                            knowledgeSkillTree.BtnClicked(skillBtn);
+                        }
+                        knowledgeSkillTree.selectedPanelTitleTxt.SetText(megaKnowledge.DisplayName);
+                        knowledgeSkillTree.selectedPanelDescTxt.SetText(megaKnowledge.Description);
                     });
                     btn.Construct(newButton);
                     if (!Buttons.ContainsKey(megaKnowledge.towerSet))
@@ -135,18 +143,18 @@ namespace MegaKnowledge
             [HarmonyPostfix]
             internal static void Postfix(KnowledgeMain __instance)
             {
-                var texts = new Dictionary<string, GameObject>
+                var texts = new Dictionary<TowerSet, GameObject>
                 {
-                    {"Primary", __instance.primaryCompletedTxt.gameObject},
-                    {"Military", __instance.militaryCompletedTxt.gameObject},
-                    {"Magic", __instance.magicCompletedTxt.gameObject},
-                    {"Support", __instance.supportCompletedTxt.gameObject},
+                    { Primary, __instance.primaryCompletedTxt.gameObject },
+                    { Military, __instance.militaryCompletedTxt.gameObject },
+                    { Magic, __instance.magicCompletedTxt.gameObject },
+                    { Support, __instance.supportCompletedTxt.gameObject },
                 };
 
                 foreach (var (set, text) in texts)
                 {
                     var button = text.transform.parent.gameObject;
-                    var existing = button.transform.FindChild(set);
+                    var existing = button.transform.FindChild(set.ToString());
                     if (existing != null)
                     {
                         continue;
@@ -162,7 +170,7 @@ namespace MegaKnowledge
                         //newImage.transform.Translate(i - 75, -150 - i / 3.6f, 0);
                         newImage.transform.Translate(-150f + i / 3.6f, i, 0);
                         newImage.transform.Rotate(0, 0, -15.5f);
-                        newImage.name = set;
+                        newImage.name = set.ToString();
 
                         var realImage = newImage.GetComponent<Image>();
 
