@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack.Behaviors;
@@ -10,11 +9,16 @@ using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Simulation.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Display;
+using Il2CppAssets.Scripts.Simulation.Input;
+using Il2CppAssets.Scripts.Simulation.SMath;
 using MegaKnowledge.MegaKnowledges.Support;
+using Math = System.Math;
 
 namespace MegaKnowledge
 {
-    public class MiscPatches
+    public static class MiscPatches
     {
         [HarmonyPatch(typeof(RotateToPointer), nameof(RotateToPointer.SetRotation))]
         internal class RotateToPointer_SetRotation
@@ -22,7 +26,7 @@ namespace MegaKnowledge
             [HarmonyPrefix]
             internal static bool Prefix(RotateToPointer __instance)
             {
-                if (__instance.dartlingMaintainLastPos is {tower: { }})
+                if (__instance.dartlingMaintainLastPos is { tower: { } })
                 {
                     return __instance.dartlingMaintainLastPos.tower.targetType.intID == -1;
                 }
@@ -39,13 +43,14 @@ namespace MegaKnowledge
             {
                 if (__instance.rotateToPointer?.dartlingMaintainLastPos?.tower != null)
                 {
-                    if (__instance.rotateToPointer.dartlingMaintainLastPos.tower.targetType.intID != -1
-                        && __instance.rotateToPointer.attack.target.bloon != null &&
+                    if (__instance.rotateToPointer.dartlingMaintainLastPos.tower.targetType.intID != -1 &&
+                        __instance.rotateToPointer.attack.target.bloon != null &&
                         !__instance.lineEffectModel.isLineDisplayEndless)
                     {
                         __instance.targetMagnitude =
                             __instance.rotateToPointer.attack.target.bloon.Position.Distance(__instance.rotateToPointer
-                                .dartlingMaintainLastPos.tower.Position) - 20;
+                                .dartlingMaintainLastPos.tower.Position) -
+                            20;
                     }
                 }
 
@@ -59,11 +64,12 @@ namespace MegaKnowledge
             [HarmonyPrefix]
             internal static bool Prefix(TrackTargetWithinTime __instance)
             {
-                if (__instance.trackTargetWithinTimeModel.name.Contains("Behind") && __instance.projectile.ExhaustFraction < .2)
+                if (__instance.trackTargetWithinTimeModel.name.Contains("Behind") &&
+                    __instance.projectile.ExhaustFraction < .2)
                 {
                     return false;
                 }
-                
+
                 return true;
             }
         }
@@ -94,7 +100,9 @@ namespace MegaKnowledge
                 {
                     if (!SpikeInfo.ContainsKey(__instance.Id.Id))
                     {
-                        var projectileBehavior = __instance.projectileBehaviors.list.FirstOrDefault(b => b.TryCast<ArriveAtTarget>() != null);
+                        var projectileBehavior =
+                            __instance.projectileBehaviors.list.FirstOrDefault(b =>
+                                b.TryCast<ArriveAtTarget>() != null);
                         if (projectileBehavior != null)
                         {
                             SpikeInfo[__instance.Id.Id] = (projectileBehavior.Cast<ArriveAtTarget>(), 0);
@@ -104,13 +112,14 @@ namespace MegaKnowledge
                             return;
                         }
                     }
+
                     var (arriveAtTarget, pierce) = SpikeInfo[__instance.Id.Id];
                     var arriveAtTargetModel = arriveAtTarget.arriveModel;
                     if (!arriveAtTargetModel.filterCollisionWhileMoving && arriveAtTarget.GetPercThruMovement() < .99)
                     {
                         pierce += __state - __instance.pierce;
                         __instance.pierce = __state;
-                        
+
                         if (Math.Abs(pierce - __state) < .00001)
                         {
                             arriveAtTargetModel = arriveAtTargetModel.Duplicate();
@@ -138,13 +147,25 @@ namespace MegaKnowledge
             }
         }
 
-
-
-
-
-
-
-
-
+        [HarmonyPatch(typeof(InputManager), nameof(InputManager.GetRangeMeshes))]
+        internal static class InputManager_GetRangeMeshes
+        {
+            [HarmonyPostfix]
+            private static void Postfix(InputManager __instance, TowerModel towerModel,
+                Vector3 position, ref Il2CppSystem.Collections.Generic.List<Mesh> __result)
+            {
+                if (towerModel != null &&
+                    towerModel.baseId == TowerType.BeastHandler &&
+                    towerModel.tier > 0 &&
+                    ModContent.GetInstance<CarryABigStick>().Enabled)
+                {
+                    var mesh = RangeMesh.GetMeshStatically(__instance.Sim, position, towerModel.GetAttackModel().range,
+                        towerModel.ignoreBlockers);
+                    mesh.isValid = true;
+                    mesh.position = position;
+                    __result.Add(mesh);
+                }
+            }
+        }
     }
 }

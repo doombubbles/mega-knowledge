@@ -259,5 +259,16 @@
             Engineers permanently Overclock themselves.
         </td>
     </tr>
+    <tr>
+        <td width='15%' align='center'>
+            <img alt='Carry A Big Stick' src='/MegaKnowledges/Support/CarryABigStick.png'>
+        </td>
+        <td align='center'>
+            <h2>Carry A Big Stick</h2>
+        </td>
+        <td>
+            Beast Handlers keep their 000 melee attack, and it gets stronger as you upgrade them.
+        </td>
+    </tr>
 </table>
         

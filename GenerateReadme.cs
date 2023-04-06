@@ -4,6 +4,7 @@ using System.Linq;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Models.TowerSets;
 
 namespace MegaKnowledge;
 
@@ -14,7 +15,7 @@ internal static class GenerateReadme
     private static string FilePath =>
         Path.Combine(ModHelper.ModSourcesDirectory, nameof(MegaKnowledge), "MegaKnowledges");
 
-    private static readonly string[] TowerSets = {"Primary", "Military", "Magic", "Support"};
+    private static readonly TowerSet[] TowerSets = {TowerSet.Primary, TowerSet.Military, TowerSet.Magic, TowerSet.Support};
 
     public static void Generate()
     {
@@ -23,7 +24,7 @@ internal static class GenerateReadme
         foreach (var towerSet in TowerSets)
         {
             var text = GenerateCategory(towerSet);
-            SaveMd(text, Path.Combine(towerSet, ReadMe));
+            SaveMd(text, Path.Combine(towerSet.ToString(), ReadMe));
             total += text;
         }
 
@@ -32,7 +33,7 @@ internal static class GenerateReadme
 
     private static void SaveMd(string text, string path) => File.WriteAllText(Path.Combine(FilePath, path), text);
 
-    private static string GenerateCategory(string category) =>
+    private static string GenerateCategory(TowerSet category) =>
         $@"
 <h2>{category}</h2>
 
