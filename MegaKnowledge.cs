@@ -6,49 +6,48 @@ using Il2CppAssets.Scripts.Models.TowerSets;
 using MelonLoader;
 using static Il2CppAssets.Scripts.Models.TowerSets.TowerSet;
 
-namespace MegaKnowledge
+namespace MegaKnowledge;
+
+public abstract class MegaKnowledge : NamedModContent
 {
-    public abstract class MegaKnowledge : NamedModContent
+    private MelonPreferences_Entry<bool> setting;
+
+    public bool Enabled
     {
-        private MelonPreferences_Entry<bool> setting;
+        get => setting?.Value == true;
+        set => setting.Value = value;
+    }
 
-        public bool Enabled
-        {
-            get => setting?.Value == true;
-            set => setting.Value = value;
-        }
+    public abstract string TowerId { get; }
 
-        public abstract string TowerId { get; }
+    public abstract int Offset { get; }
 
-        public abstract int Offset { get; }
+    public virtual bool TargetChanging => false;
 
-        public virtual bool TargetChanging => false;
-
-        public TowerSet towerSet;
+    public TowerSet towerSet;
 
 
-        public override void Register()
-        {
-            MegaKnowledgeMod.MegaKnowledgeCategory ??= MelonPreferences.CreateCategory("MegaKnowledges");
+    public override void Register()
+    {
+        MegaKnowledgeMod.MegaKnowledgeCategory ??= MelonPreferences.CreateCategory("MegaKnowledges");
 
-            towerSet = Game.instance.model.GetTowerWithName(TowerId).towerSet;
+        towerSet = Game.instance.model.GetTowerWithName(TowerId).towerSet;
 
-            setting = MegaKnowledgeMod.MegaKnowledgeCategory.CreateEntry(Name, false, DisplayName, Description);
-        }
+        setting = MegaKnowledgeMod.MegaKnowledgeCategory.CreateEntry(Name, false, DisplayName, Description);
+    }
 
-        public abstract void Apply(TowerModel model);
+    public abstract void Apply(TowerModel model);
 
-        public string KnowledgeToCloneFrom => towerSet switch
-        {
-            Primary => "MoreCash",
-            Military => "BigBloonSabotage",
-            Magic => "ManaShield",
-            Support => "BankDeposits",
-            _ => ""
-        };
+    public string KnowledgeToCloneFrom => towerSet switch
+    {
+        Primary => "MoreCash",
+        Military => "BigBloonSabotage",
+        Magic => "ManaShield",
+        Support => "BankDeposits",
+        _ => ""
+    };
 
-        public virtual void OnUpdate()
-        {
-        }
+    public virtual void OnUpdate()
+    {
     }
 }

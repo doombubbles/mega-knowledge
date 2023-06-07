@@ -1,6 +1,1 @@
-- Fixed for BTD6 v36
-- Added a Mega Knoweldge for Beast Handlers - "Carry a Big Stick"
-  - Beast Handlers keep their 000 melee attack, and it gets stronger as you upgrade them.
-    - Fish upgrades increase attack speed and splash size
-    - Dino upgrades increase damage
-    - Bird upgrades increase range and pierce
+- Fixed for BTD6 v37
