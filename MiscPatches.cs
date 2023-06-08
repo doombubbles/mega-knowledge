@@ -26,7 +26,7 @@ public static class MiscPatches
         [HarmonyPrefix]
         internal static bool Prefix(RotateToPointer __instance)
         {
-            if (__instance.dartlingMaintainLastPos is { tower: { } })
+            if (__instance.dartlingMaintainLastPos is { tower: not null })
             {
                 return __instance.dartlingMaintainLastPos.tower.targetType.intID == -1;
             }

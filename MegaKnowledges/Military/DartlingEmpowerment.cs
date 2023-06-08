@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace MegaKnowledge.MegaKnowledges.Military;
 
@@ -12,7 +13,6 @@ public class DartlingEmpowerment : MegaKnowledge
     public override string TowerId => TowerType.DartlingGunner;
     public override string Description => "Dartling Gunner can attack like a regular tower.";
     public override int Offset => 1200;
-    public override bool TargetChanging => true;
 
     public override void Apply(TowerModel model)
     {
@@ -21,15 +21,10 @@ public class DartlingEmpowerment : MegaKnowledge
             return;
         }
 
-        var boomer = Game.instance.model.GetTowerFromId(TowerType.BoomerangMonkey);
+        var normalAttack = Game.instance.model.GetTowerFromId(TowerType.BoomerangMonkey).GetAttackModel();
         var attackModel = model.GetAttackModel();
 
-        foreach (var boomerTargetType in boomer.targetTypes)
-        {
-            model.targetTypes = model.targetTypes.AddTo(boomerTargetType);
-        }
-
-        attackModel.AddBehavior(boomer.GetAttackModel().GetBehavior<RotateToTargetModel>().Duplicate());
+        attackModel.AddBehavior(normalAttack.GetBehavior<RotateToTargetModel>().Duplicate());
 
         var targetPointerModel = attackModel.GetBehavior<TargetPointerModel>();
         var targetSelectedPointModel = attackModel.GetBehavior<TargetSelectedPointModel>();
@@ -37,13 +32,15 @@ public class DartlingEmpowerment : MegaKnowledge
         attackModel.RemoveBehavior<TargetPointerModel>();
         attackModel.RemoveBehavior<TargetSelectedPointModel>();
 
-        attackModel.AddBehavior(boomer.GetAttackModel().GetBehavior<TargetFirstModel>().Duplicate());
-        attackModel.AddBehavior(boomer.GetAttackModel().GetBehavior<TargetLastModel>().Duplicate());
-        attackModel.AddBehavior(boomer.GetAttackModel().GetBehavior<TargetCloseModel>().Duplicate());
-        attackModel.AddBehavior(boomer.GetAttackModel().GetBehavior<TargetStrongModel>().Duplicate());
+        attackModel.AddBehavior(normalAttack.GetBehavior<TargetFirstModel>().Duplicate());
+        attackModel.AddBehavior(normalAttack.GetBehavior<TargetLastModel>().Duplicate());
+        attackModel.AddBehavior(normalAttack.GetBehavior<TargetCloseModel>().Duplicate());
+        attackModel.AddBehavior(normalAttack.GetBehavior<TargetStrongModel>().Duplicate());
 
         attackModel.AddBehavior(targetPointerModel);
         attackModel.AddBehavior(targetSelectedPointModel);
+
+        model.UpdateTargetProviders();
 
         if (model.appliedUpgrades.Contains(UpgradeType.FasterSwivel))
         {

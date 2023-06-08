@@ -22,23 +22,21 @@ public abstract class MegaKnowledge : NamedModContent
 
     public abstract int Offset { get; }
 
-    public virtual bool TargetChanging => false;
-
-    public TowerSet towerSet;
+    public TowerSet TowerSet { get; private set; }
 
 
     public override void Register()
     {
         MegaKnowledgeMod.MegaKnowledgeCategory ??= MelonPreferences.CreateCategory("MegaKnowledges");
 
-        towerSet = Game.instance.model.GetTowerWithName(TowerId).towerSet;
+        TowerSet = Game.instance.model.GetTowerWithName(TowerId).towerSet;
 
         setting = MegaKnowledgeMod.MegaKnowledgeCategory.CreateEntry(Name, false, DisplayName, Description);
     }
 
     public abstract void Apply(TowerModel model);
 
-    public string KnowledgeToCloneFrom => towerSet switch
+    public string KnowledgeToCloneFrom => TowerSet switch
     {
         Primary => "MoreCash",
         Military => "BigBloonSabotage",

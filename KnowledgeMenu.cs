@@ -46,7 +46,7 @@ public class KnowledgeMenu
                 var btn = newButton.GetComponentInChildren<KnowledgeSkillBtn>();
                 newButton.name = megaKnowledge.Name;
                 var knowledgeModels = Game.instance.model.allKnowledge
-                    .Where(model => model.category.ToString() == megaKnowledge.towerSet.ToString());
+                    .Where(model => model.category.ToString() == megaKnowledge.TowerSet.ToString());
                 btn.ClickedEvent = new Action<KnowledgeSkillBtn>(skillBtn =>
                 {
                     var hasAll = true;
@@ -61,13 +61,13 @@ public class KnowledgeMenu
 
                     if (!(Input.GetKey(KeyCode.LeftShift) || hasAll))
                     {
-                        foreach (var knowledgeSkillBtn in Buttons[megaKnowledge.towerSet].Values)
+                        foreach (var knowledgeSkillBtn in Buttons[megaKnowledge.TowerSet].Values)
                         {
                             knowledgeSkillBtn.SetState(KnowlegdeSkillBtnState.Available);
                         }
 
                         foreach (var mkv in ModContent.GetContent<MegaKnowledge>().Where(mkv =>
-                                     mkv.towerSet == megaKnowledge.towerSet))
+                                     mkv.TowerSet == megaKnowledge.TowerSet))
                         {
                             if (mkv == megaKnowledge) continue;
                             mkv.Enabled = false;
@@ -94,12 +94,12 @@ public class KnowledgeMenu
                     knowledgeSkillTree.selectedPanelDescTxt.SetText(megaKnowledge.Description);
                 });
                 btn.Construct(newButton);
-                if (!Buttons.ContainsKey(megaKnowledge.towerSet))
+                if (!Buttons.ContainsKey(megaKnowledge.TowerSet))
                 {
-                    Buttons[megaKnowledge.towerSet] = new Dictionary<string, KnowledgeSkillBtn>();
+                    Buttons[megaKnowledge.TowerSet] = new Dictionary<string, KnowledgeSkillBtn>();
                 }
 
-                Buttons[megaKnowledge.towerSet][megaKnowledge.Name] = btn;
+                Buttons[megaKnowledge.TowerSet][megaKnowledge.Name] = btn;
                 btn.SetState(megaKnowledge.Enabled
                     ? KnowlegdeSkillBtnState.Purchased
                     : KnowlegdeSkillBtnState.Available);
@@ -164,7 +164,7 @@ public class KnowledgeMenu
                 var i = 25;
                 foreach (var megaKnowledge in ModContent.GetContent<MegaKnowledge>())
                 {
-                    if (!megaKnowledge.Enabled || megaKnowledge.towerSet != set) continue;
+                    if (!megaKnowledge.Enabled || megaKnowledge.TowerSet != set) continue;
 
                     var newImage = Object.Instantiate(image, button.transform, true);
                     //newImage.transform.Translate(i - 75, -150 - i / 3.6f, 0);

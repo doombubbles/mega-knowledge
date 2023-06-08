@@ -25,18 +25,17 @@ public class Dreadnought : MegaKnowledge
                                                projectileModel.GetDamageModel() != null))
         {
             projectileModel.collisionPasses = flameGrape.collisionPasses;
-            projectileModel.AddBehavior(flameGrape.GetBehavior<AddBehaviorToBloonModel>().Duplicate());
+            if (!projectileModel.HasBehavior<AddBehaviorToBloonModel>())
+            {
+                projectileModel.AddBehavior(flameGrape.GetBehavior<AddBehaviorToBloonModel>().Duplicate());
+            }
             if (model.appliedUpgrades.Contains("Buccaneer-Hot Shot"))
             {
                 projectileModel.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<DamageOverTimeModel>()
                     .triggerImmediate = true;
-                projectileModel.scale = .5f;
-            }
-            else
-            {
-                projectileModel.scale = .75f;
             }
 
+            projectileModel.scale = projectileModel.radius > 3 ? .7f : .5f;
             projectileModel.display = CreatePrefabReference("c840e245a0b1deb4284cfc3f953e16cf");
             projectileModel.GetDamageModel().immuneBloonProperties = BloonProperties.None;
         }

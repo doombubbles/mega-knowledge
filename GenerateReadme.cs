@@ -37,7 +37,7 @@ internal static class GenerateReadme
         $@"
 <h2>{category}</h2>
 
-<table>{ModContent.GetContent<MegaKnowledge>().Where(knowledge => knowledge.towerSet == category).OrderBy(knowledge => knowledge.Offset).Select(GenerateEntry).Join(delimiter: "")}
+<table>{ModContent.GetContent<MegaKnowledge>().Where(knowledge => knowledge.TowerSet == category).OrderBy(knowledge => knowledge.Offset).Select(GenerateEntry).Join(delimiter: "")}
 </table>
         ";
 
@@ -46,7 +46,7 @@ internal static class GenerateReadme
         $@"
     <tr>
         <td width='15%' align='center'>
-            <img alt='{knowledge.DisplayName}' src='/MegaKnowledges/{knowledge.towerSet}/{knowledge.Name}.png'>
+            <img alt='{knowledge.DisplayName}' src='/MegaKnowledges/{knowledge.TowerSet}/{knowledge.Name}.png'>
         </td>
         <td align='center'>
             <h2>{knowledge.DisplayName}</h2>

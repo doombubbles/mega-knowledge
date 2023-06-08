@@ -15,28 +15,10 @@ public class SpikeEmpowerment : MegaKnowledge
         "Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.";
 
     public override int Offset => 400;
-    public override bool TargetChanging => true;
 
     public override void Apply(TowerModel model)
     {
-        var mortar = Game.instance.model.GetTowerFromId(TowerType.MortarMonkey);
         model.towerSelectionMenuThemeId = TowerType.MortarMonkey;
-
-        model.targetTypes = new Il2CppReferenceArray<TargetType>(mortar.targetTypes);
-
-        if (model.targetTypes.Length > 1)
-        {
-            while (model.targetTypes.Length > 1)
-            {
-                model.targetTypes = model.targetTypes.RemoveItemOfType<TargetType, TargetType>();
-            }
-
-            model.targetTypes[0].id = "TargetSelectedPoint";
-            model.targetTypes[0].intID = -1;
-            model.targetTypes[0].actionOnCreate = true;
-            model.targetTypes[0].isActionable = true;
-        }
-
 
         model.GetAttackModel().RemoveBehavior<TargetTrackModel>();
         model.GetAttackModel().RemoveBehavior<SmartTargetTrackModel>();
@@ -48,8 +30,9 @@ public class SpikeEmpowerment : MegaKnowledge
         if (targetSelectedPointModel == null)
         {
             var tspm = new TargetSelectedPointModel("TargetSelectedPointModel_", true,
-                false, CreatePrefabReference("4e88dd78c6e800d41a6df5b02d592082"), .5f, "",
-                false, false, CreatePrefabReference(""), true, null, false);
+                false, CreatePrefabReference("f786dd2ad0e3e8649a8ff0ac9f8cc6fb"), 1, "",
+                !MegaKnowledgeMod.OpSpikeEmpowerment, false, CreatePrefabReference("d053160180f53da43be4f9972ee1497a"),
+                true, null, true);
             model.GetAttackModel().AddBehavior(tspm);
         }
 
