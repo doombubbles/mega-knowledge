@@ -3,6 +3,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppSystem.Collections.Generic;
 
 namespace MegaKnowledge.MegaKnowledges.Primary;
@@ -22,6 +23,6 @@ public class IceSeeYou : MegaKnowledge
             projectileModel.AddBehavior(behavior.Duplicate());
         }
 
-        model.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel_", true));
+        model.GetDescendants<FilterInvisibleModel>().ForEach(invisibleModel => invisibleModel.isActive = false);
     }
 }

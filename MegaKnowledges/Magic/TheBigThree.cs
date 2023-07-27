@@ -19,13 +19,17 @@ public class TheBigThree : MegaKnowledge
 
     public override void Apply(TowerModel model)
     {
-        if (model.tier < 3) return; 
-        var supeFilter = new FilterInBaseTowerIdModel("Filter_Supes", new[] {TowerType.SuperMonkey});
+        if (model.tier < 3) return;
+
+        var supeFilter = new FilterInBaseTowerIdModel("Filter_Supes", new[] { TowerType.SuperMonkey });
+
+        var tier = MegaKnowledgeMod.OpKnowledge ? model.tier : model.tier - 2;
+
         var buffs = new[]
         {
-            new RateSupportModel("", 1f - model.tier * .05f, true, "TheBigThree1", false, 0, null, null, null)
+            new RateSupportModel("", 1f - tier * .05f, true, "TheBigThree1", false, 0, null, null, null)
                 .ApplyBuffIcon<SunAvatarIcon>(),
-            new RangeSupportModel("", true, model.tier * .05f, 0f, "TheBigThree2", null, false, null, null)
+            new RangeSupportModel("", true, tier * .05f, 0f, "TheBigThree2", null, false, null, null)
                 .ApplyBuffIcon<RoboMonkeyIcon>(),
             new PierceSupportModel("", true, model.tier, "TheBigThree3", null, false, null, null)
                 .ApplyBuffIcon<DarkKnightIcon>()
@@ -45,7 +49,7 @@ public class TheBigThree : MegaKnowledge
                 buffForPath.filters = new TowerFilterModel[]
                 {
                     supeFilter.Duplicate(),
-                    new FilterInTowerTiersModel("FilterInTowerTiersModel_",
+                    new FilterInTowerTiersModel("",
                         otherPath == 0 ? 3 : 0, 5,
                         otherPath == 1 ? 3 : 0, 5,
                         otherPath == 2 ? 3 : 0, 5)

@@ -25,7 +25,7 @@ public class AttackAndSupport : MegaKnowledge
         if (submerge.heroXpScale > 1.0)
         {
             model.AddBehavior(new HeroXpScaleSupportModel("HeroXpScaleSupportModel_", true, submerge.heroXpScale,
-                null));
+                null, submerge.buffLocsName, submerge.buffIconName));
         }
 
         if (submerge.abilityCooldownSpeedScale > 1.0)

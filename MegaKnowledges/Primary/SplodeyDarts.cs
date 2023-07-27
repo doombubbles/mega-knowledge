@@ -13,15 +13,21 @@ namespace MegaKnowledge.MegaKnowledges.Primary;
 public class SplodeyDarts : MegaKnowledge
 {
     public override string TowerId => TowerType.DartMonkey;
-    public override string Description => "Dart Monkey projectiles explode on expiration.";
+
+    public override string Description => MegaKnowledgeMod.OpKnowledge
+        ? "Dart Monkey projectiles explode on expiration."
+        : "Dart Monkey projectiles for Tier 3 and below explode on expiration.";
+
     public override int Offset => -1200;
 
     public override void Apply(TowerModel model)
     {
+        if (model.tier > 3 && !MegaKnowledgeMod.OpKnowledge) return;
+
+        var baseBomb = Game.instance.model.GetTowerFromId(TowerType.BombShooter).GetWeapon().projectile;
         foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList())
         {
-            var bomb = Game.instance.model.GetTowerFromId(TowerType.BombShooter).GetWeapon()
-                .projectile.Duplicate();
+            var bomb = baseBomb.Duplicate();
             var pb = bomb.GetBehavior<CreateProjectileOnContactModel>();
             var sound = bomb.GetBehavior<CreateSoundOnProjectileCollisionModel>();
             var effect = bomb.GetBehavior<CreateEffectOnContactModel>();
@@ -29,30 +35,25 @@ public class SplodeyDarts : MegaKnowledge
 
             if (model.appliedUpgrades.Contains(UpgradeType.EnhancedEyesight))
             {
-                pb.projectile.GetBehavior<ProjectileFilterModel>().filters
-                    .GetItemOfType<FilterModel, FilterInvisibleModel>().isActive = false;
+                pb.projectile.GetDescendant<FilterInvisibleModel>().isActive = false;
             }
 
-            /*pb.name = "CreateProjectileOnContactModel_SplodeyDarts";
-            sound.name = "CreateSoundOnProjectileCollisionModel_SplodeyDarts";
-            effect.name = "CreateEffectOnContactModel_SplodeyDarts";
-            projectileModel.AddBehavior(pb);
-            projectileModel.AddBehavior(sound);
-            projectileModel.AddBehavior(effect);*/
-
-            var behavior = new CreateProjectileOnExhaustFractionModel(
-                "CreateProjectileOnExhaustFractionModel_SplodeyDarts",
+            var behavior = new CreateProjectileOnExhaustFractionModel("SplodeyDarts",
                 pb.projectile, pb.emission, 1f, 1f, true, false, false);
             projectileModel.AddBehavior(behavior);
 
-            var soundBehavior = new CreateSoundOnProjectileExhaustModel(
-                "CreateSoundOnProjectileExhaustModel_SplodeyDarts",
+            var soundBehavior = new CreateSoundOnProjectileExhaustModel("SplodeyDarts",
                 sound.sound1, sound.sound2, sound.sound3, sound.sound4, sound.sound5);
             projectileModel.AddBehavior(soundBehavior);
 
-            var eB = new CreateEffectOnExhaustedModel("CreateEffectOnExhaustedModel_SplodeyDarts",
+            var eB = new CreateEffectOnExhaustedModel("SplodeyDarts",
                 CreatePrefabReference(""), 0f, Fullscreen.No, false, effect.effectModel);
             projectileModel.AddBehavior(eB);
+
+            if (!MegaKnowledgeMod.OpKnowledge)
+            {
+                pb.projectile.pierce = 5;
+            }
         }
     }
 }

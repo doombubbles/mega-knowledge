@@ -31,7 +31,7 @@ public class SpikeEmpowerment : MegaKnowledge
         {
             var tspm = new TargetSelectedPointModel("TargetSelectedPointModel_", true,
                 false, CreatePrefabReference("f786dd2ad0e3e8649a8ff0ac9f8cc6fb"), 1, "",
-                !MegaKnowledgeMod.OpSpikeEmpowerment, false, CreatePrefabReference("d053160180f53da43be4f9972ee1497a"),
+                !MegaKnowledgeMod.OpKnowledge, !MegaKnowledgeMod.OpKnowledge, CreatePrefabReference("d053160180f53da43be4f9972ee1497a"),
                 true, null, true);
             model.GetAttackModel().AddBehavior(tspm);
         }

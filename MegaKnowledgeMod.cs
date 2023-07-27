@@ -25,29 +25,12 @@ namespace MegaKnowledge;
 public class MegaKnowledgeMod : BloonsTD6Mod
 {
     public static MelonPreferences_Category MegaKnowledgeCategory;
-
-    public static readonly ModSettingBool OpOvertime = new(false)
-    {
-        description =
-            "Re-enables the old OP behavior of the Engineering Mega Knowledge \"Overtime\" also affecting the Engineer sentries.",
-        icon = VanillaSprites.SentryGunUpgradeIcon,
-        displayName = "OP Overtime"
-    };
-
-    public static readonly ModSettingBool OpCrystalBall = new(false)
-    {
-        description =
-            "Wizards with the Guided Magic upgrade can still shoot through walls while using the \"Crystal Ball\" Mega Knowledge.",
-        icon = VanillaSprites.GuildedMagicUpgradeIcon,
-        displayName = "OP Crystal Ball"
-    };
     
-    public static readonly ModSettingBool OpSpikeEmpowerment = new(false)
+    public static readonly ModSettingBool OpKnowledge = new(false)
     {
-        description =
-            "Re-enables the old behavior of the \"Spike Empowerment\" Mega Knowledge letting Spike Factories target anywhere on the map.",
-        icon = VanillaSprites.SpikeFactoryIcon,
-        displayName = "OP Spike Empowerment"
+        description = "Re-enables the old OP behavior of many MegaKnowledges before they were rebalanced",
+        icon = VanillaSprites.MaxPowersIcon,
+        displayName = "OP Knowledge"
     };
 
 #if DEBUG
@@ -69,7 +52,7 @@ public class MegaKnowledgeMod : BloonsTD6Mod
         }
     }
 
-    public override void OnNewGameModel(GameModel result, Il2CppSystem.Collections.Generic.List<ModModel> mods)
+    public override void OnNewGameModel(GameModel result, IReadOnlyList<ModModel> mods)
     {
         var knowledgeDisabled = Game.instance.GetPlayerProfile().knowledgeDisabled ||
                                 mods.ToList().Any(model =>

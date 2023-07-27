@@ -14,7 +14,7 @@ public class CrystalBall : MegaKnowledge
     public override string TowerId => TowerType.WizardMonkey;
 
     public override string Description =>
-        MegaKnowledgeMod.OpCrystalBall
+        MegaKnowledgeMod.OpKnowledge
             ? "The Guided Magic upgrade gives Wizard Monkeys Advanced Intel style targeting"
             : "Instead of letting Wizard Monkeys see through walls, the Guided Magic upgrade gives them Advanced Intel style targeting.";
 
@@ -24,7 +24,7 @@ public class CrystalBall : MegaKnowledge
     {
         if (!model.appliedUpgrades.Contains(UpgradeType.GuidedMagic)) return;
 
-        if (!MegaKnowledgeMod.OpCrystalBall)
+        if (!MegaKnowledgeMod.OpKnowledge)
         {
             model.ignoreBlockers = false;
         }
@@ -60,7 +60,7 @@ public class CrystalBall : MegaKnowledge
                     true, true, false, false));
             }
 
-            if (!MegaKnowledgeMod.OpCrystalBall)
+            if (!MegaKnowledgeMod.OpKnowledge)
             {
                 attackModel.attackThroughWalls = false;
             }
@@ -77,7 +77,7 @@ public class CrystalBall : MegaKnowledge
             var travelStraitModel = projectileModel.GetBehavior<TravelStraitModel>();
             if (travelStraitModel != null)
             {
-                var newLifeSpan = travelStraitModel.Lifespan * (150 / travelStraitModel.Speed);
+                var newLifeSpan = travelStraitModel.Lifespan * (200 / travelStraitModel.Speed);
                 travelStraitModel.Lifespan = Math.Max(travelStraitModel.Lifespan, newLifeSpan);
                 if (projectileModel.GetBehavior<TrackTargetModel>() == null)
                 {
@@ -85,7 +85,7 @@ public class CrystalBall : MegaKnowledge
                 }
             }
 
-            if (!MegaKnowledgeMod.OpCrystalBall)
+            if (!MegaKnowledgeMod.OpKnowledge)
             {
                 projectileModel.ignoreBlockers = false;
             }

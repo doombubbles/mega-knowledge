@@ -1,5 +1,2 @@
-- Fixed issue with Dartling and Mortar targeting not always applying for all matches
-- Internally revamped Dartling and Mortar target changing for improved consistency
-- Spike Empowerment now restricts targeted point to within the tower's range by default
-  - Enable the "OP Spike Empowerment" option in mod settings to restore old behavior
-- Fixed the scales of Dreadnought projectiles
+- Fixed for BTD6 v38
+- Consolidated OP setting toggles into one, and added more balancing for the non-op setting Mega Knowledges

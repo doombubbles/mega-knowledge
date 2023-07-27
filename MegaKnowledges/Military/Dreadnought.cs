@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using BTD_Mod_Helper.Api.Enums;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
@@ -18,26 +19,37 @@ public class Dreadnought : MegaKnowledge
     public override void Apply(TowerModel model)
     {
         var attackModel = model.GetAttackModel();
-        var flameGrape = Game.instance.model.GetTower(TowerType.MonkeyBuccaneer, 0, 2, 0).GetWeapons()[3]
-            .projectile;
+        var flameGrape = Game.instance.model.GetTower(TowerType.MonkeyBuccaneer, 0, 2, 0)
+            .GetDescendant<AddBehaviorToBloonModel>();
+
         foreach (var projectileModel in attackModel.GetDescendants<ProjectileModel>().ToList()
                      .Where(projectileModel => !projectileModel.name.Contains("Explosion") &&
                                                projectileModel.GetDamageModel() != null))
         {
-            projectileModel.collisionPasses = flameGrape.collisionPasses;
             if (!projectileModel.HasBehavior<AddBehaviorToBloonModel>())
             {
-                projectileModel.AddBehavior(flameGrape.GetBehavior<AddBehaviorToBloonModel>().Duplicate());
+                projectileModel.AddBehavior(flameGrape.Duplicate());
             }
-            if (model.appliedUpgrades.Contains("Buccaneer-Hot Shot"))
+
+            var dot = projectileModel.GetDescendant<DamageOverTimeModel>();
+            var hotShots = model.appliedUpgrades.Contains(UpgradeType.HotShot);
+            
+            if (MegaKnowledgeMod.OpKnowledge)
             {
-                projectileModel.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<DamageOverTimeModel>()
-                    .triggerImmediate = true;
+                dot.triggerImmediate = hotShots;
+            }
+            else if (!hotShots)
+            {
+                dot.damage = 1;
             }
 
             projectileModel.scale = projectileModel.radius > 3 ? .7f : .5f;
             projectileModel.display = CreatePrefabReference("c840e245a0b1deb4284cfc3f953e16cf");
-            projectileModel.GetDamageModel().immuneBloonProperties = BloonProperties.None;
+
+            var damage = projectileModel.GetDamageModel();
+            damage.immuneBloonProperties = damage.immuneBloonPropertiesOriginal = BloonProperties.None;
+
+            projectileModel.UpdateCollisionPassList();
         }
     }
 }

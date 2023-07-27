@@ -11,11 +11,13 @@ public class DigitalAmplification : MegaKnowledge
 
     public override void Apply(TowerModel model)
     {
-        model.range *= 2;
+        var amount = MegaKnowledgeMod.OpKnowledge ? 2 : 1.5f;
+
+        model.range *= amount;
 
         foreach (var attackModel in model.GetAttackModels())
         {
-            attackModel.range *= 2;
+            attackModel.range *= amount;
         }
     }
 }
