@@ -1,2 +1,1 @@
-- Fixed for BTD6 v38
-- Consolidated OP setting toggles into one, and added more balancing for the non-op setting Mega Knowledges
+- Recompiled for BTD6 v39
