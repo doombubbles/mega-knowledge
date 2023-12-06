@@ -31,8 +31,8 @@ public class GorillaGlue : MegaKnowledge
             var damageModel = projectileModel.GetDamageModel();
             if (damageModel == null)
             {
-                damageModel = new DamageModel("DamageModel_", amount, 0f,
-                    true, false, true, BloonProperties.None, BloonProperties.None);
+                damageModel = new DamageModel("DamageModel_", amount, 0f, true, false, true, BloonProperties.None,
+                    BloonProperties.None, false);
                 projectileModel.AddBehavior(damageModel);
             }
             else
