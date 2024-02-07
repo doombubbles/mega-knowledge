@@ -2,8 +2,8 @@
 
 public static class ModHelperData
 {
-    public const string WorksOnVersion = "40.0";
-    public const string Version = "1.2.5";
+    public const string WorksOnVersion = "41.0";
+    public const string Version = "1.2.6";
     public const string Name = "Mega Knowledge";
 
     public const string Description =

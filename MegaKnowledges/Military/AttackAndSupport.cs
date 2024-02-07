@@ -15,12 +15,11 @@ public class AttackAndSupport : MegaKnowledge
 
     public override void Apply(TowerModel model)
     {
-        if (model.GetBehavior<SubmergeModel>() == null) return;
+        if (!model.HasBehavior(out SubmergeModel submerge) || model.isParagon) return;
 
         model.targetTypes = Game.instance.model.GetTowerFromId(TowerType.MonkeySub).targetTypes;
 
         var submergeEffect = model.GetBehavior<SubmergeEffectModel>().effectModel;
-        var submerge = model.GetBehavior<SubmergeModel>();
 
         if (submerge.heroXpScale > 1.0)
         {
