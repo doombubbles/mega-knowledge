@@ -5,9 +5,9 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
-using Il2CppAssets.Scripts.Utils;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Extensions;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace MegaKnowledge.MegaKnowledges.Magic;
 

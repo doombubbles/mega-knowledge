@@ -4,7 +4,6 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace MegaKnowledge.MegaKnowledges.Military;
 

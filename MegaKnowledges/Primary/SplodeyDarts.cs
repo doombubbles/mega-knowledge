@@ -1,5 +1,4 @@
-﻿using Il2CppAssets.Scripts.Models;
-using Il2CppAssets.Scripts.Models.Towers;
+﻿using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;

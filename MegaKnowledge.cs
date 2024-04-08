@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Il2CppAssets.Scripts.Models.Towers;
+﻿using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api;
 using Il2CppAssets.Scripts.Models.TowerSets;

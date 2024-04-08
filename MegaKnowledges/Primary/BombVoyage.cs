@@ -2,13 +2,8 @@
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
-using HarmonyLib;
 using Il2Cpp;
-using Il2CppAssets.Scripts.Data;
-using Il2CppAssets.Scripts.Models.Store;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
-using Il2CppAssets.Scripts.Unity.CollectionEvent;
-using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
 namespace MegaKnowledge.MegaKnowledges.Primary;
 
