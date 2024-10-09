@@ -26,7 +26,7 @@ public static class MiscPatches
         {
             if (__instance.dartlingMaintainLastPos is { tower: not null })
             {
-                return __instance.dartlingMaintainLastPos.tower.targetType.intID == -1;
+                return __instance.dartlingMaintainLastPos.tower.TargetType.intID == -1;
             }
 
             return true;
@@ -41,7 +41,7 @@ public static class MiscPatches
         {
             if (__instance.rotateToPointer?.dartlingMaintainLastPos?.tower != null)
             {
-                if (__instance.rotateToPointer.dartlingMaintainLastPos.tower.targetType.intID != -1 &&
+                if (__instance.rotateToPointer.dartlingMaintainLastPos.tower.TargetType.intID != -1 &&
                     __instance.rotateToPointer.attack.target.bloon != null &&
                     !__instance.lineEffectModel.isLineDisplayEndless)
                 {
@@ -157,6 +157,7 @@ public static class MiscPatches
                 towerModel.tier > 0 &&
                 ModContent.GetInstance<CarryABigStick>().Enabled)
             {
+                
                 var mesh = RangeMesh.GetMeshStatically(__instance.Sim, position, towerModel.GetAttackModel().range,
                     towerModel.ignoreBlockers);
                 mesh.isValid = true;
