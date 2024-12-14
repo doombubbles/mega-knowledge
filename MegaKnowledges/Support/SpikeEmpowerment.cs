@@ -9,8 +9,7 @@ public class SpikeEmpowerment : MegaKnowledge
 {
     public override string TowerId => TowerType.SpikeFactory;
 
-    public override string Description =>
-        "Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.";
+    public override string Description => "Spike Factories choose the spot where their spikes land.";
 
     public override int Offset => 400;
 
@@ -35,6 +34,5 @@ public class SpikeEmpowerment : MegaKnowledge
         }
 
         model.UpdateTargetProviders();
-        model.GetDescendant<ArriveAtTargetModel>().filterCollisionWhileMoving = false;
     }
 }

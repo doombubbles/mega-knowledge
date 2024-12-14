@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
+﻿using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Weapons.Behaviors;
 using BTD_Mod_Helper.Api;
@@ -12,7 +10,6 @@ using Il2CppAssets.Scripts.Simulation.Display;
 using Il2CppAssets.Scripts.Simulation.Input;
 using Il2CppAssets.Scripts.Simulation.SMath;
 using MegaKnowledge.MegaKnowledges.Support;
-using Math = System.Math;
 
 namespace MegaKnowledge;
 
@@ -69,79 +66,6 @@ public static class MiscPatches
             }
 
             return true;
-        }
-    }
-
-    private static readonly Dictionary<int, (ArriveAtTarget, float)> SpikeInfo = new();
-
-    [HarmonyPatch(typeof(Projectile), nameof(Projectile.CollideBloon))]
-    internal class Projectile_CollideBloon
-    {
-        [HarmonyPrefix]
-        internal static void Prefix(Projectile __instance, ref float __state)
-        {
-            if (__instance.emittedBy?.towerModel.baseId == TowerType.SpikeFactory)
-            {
-                __state = __instance.pierce;
-            }
-            else
-            {
-                __state = 0;
-            }
-        }
-
-
-        [HarmonyPostfix]
-        internal static void Postfix(Projectile __instance, ref float __state)
-        {
-            if (__state > 0 && ModContent.GetInstance<SpikeEmpowerment>().Enabled)
-            {
-                if (!SpikeInfo.ContainsKey(__instance.Id.Id))
-                {
-                    var projectileBehavior =
-                        __instance.projectileBehaviors.list.FirstOrDefault(b =>
-                            b.TryCast<ArriveAtTarget>() != null);
-                    if (projectileBehavior != null)
-                    {
-                        SpikeInfo[__instance.Id.Id] = (projectileBehavior.Cast<ArriveAtTarget>(), 0);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                var (arriveAtTarget, pierce) = SpikeInfo[__instance.Id.Id];
-                var arriveAtTargetModel = arriveAtTarget.arriveModel;
-                if (!arriveAtTargetModel.filterCollisionWhileMoving && arriveAtTarget.GetPercThruMovement() < .99)
-                {
-                    pierce += __state - __instance.pierce;
-                    __instance.pierce = __state;
-
-                    if (Math.Abs(pierce - __state) < .00001)
-                    {
-                        arriveAtTargetModel = arriveAtTargetModel.Duplicate();
-                        arriveAtTargetModel.filterCollisionWhileMoving = true;
-                        arriveAtTarget.UpdatedModel(arriveAtTargetModel);
-                    }
-                }
-
-                SpikeInfo[__instance.Id.Id] = (arriveAtTarget, pierce);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(Projectile), nameof(Projectile.OnDestroy))]
-    [HarmonyPatch]
-    internal class Projectile_Destroy
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(Projectile __instance)
-        {
-            if (SpikeInfo.ContainsKey(__instance.Id.Id))
-            {
-                SpikeInfo.Remove(__instance.Id.Id);
-            }
         }
     }
 

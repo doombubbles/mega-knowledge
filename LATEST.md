@@ -1,1 +1,1 @@
-- Fixed for BTD6 v45.0
+- Reworked the Spike Factory Mega Knowledge to just be "Spike Factories choose the spot where their spikes land." because of side effects that the pierce changes were having
