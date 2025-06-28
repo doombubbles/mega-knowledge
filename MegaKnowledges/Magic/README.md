@@ -1,4 +1,3 @@
-
 <h2>Magic</h2>
 
 <table>
@@ -58,4 +57,3 @@
         </td>
     </tr>
 </table>
-        

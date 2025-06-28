@@ -9,47 +9,55 @@ using Il2CppAssets.Scripts.Simulation.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Display;
 using Il2CppAssets.Scripts.Simulation.Input;
 using Il2CppAssets.Scripts.Simulation.SMath;
+using MegaKnowledge.MegaKnowledges.Military;
 using MegaKnowledge.MegaKnowledges.Support;
 
 namespace MegaKnowledge;
 
 public static class MiscPatches
 {
+
     [HarmonyPatch(typeof(RotateToPointer), nameof(RotateToPointer.SetRotation))]
-    internal class RotateToPointer_SetRotation
+    internal static class RotateToPointer_SetRotation
     {
         [HarmonyPrefix]
         internal static bool Prefix(RotateToPointer __instance)
         {
-            if (__instance.dartlingMaintainLastPos is { tower: not null })
-            {
-                return __instance.dartlingMaintainLastPos.tower.TargetType.intID == -1;
-            }
+            var attack = __instance.attack;
+            if (!ModContent.GetInstance<DartlingEmpowerment>().Enabled ||
+                !attack.activeTargetSupplier.Is(out var target) ||
+                !attack.HasAttackBehavior<RotateToPointer>() ||
+                !attack.HasAttackBehavior<RotateToTarget>()) return true;
 
-            return true;
+            var targetsBloon = target.Is<TargetFirst>() ||
+                               target.Is<TargetLast>() ||
+                               target.Is<TargetClose>() ||
+                               target.Is<TargetStrong>() ||
+                               target.Is<TargetCamo>();
+
+            return !targetsBloon;
         }
     }
 
-    [HarmonyPatch(typeof(LineEffect), nameof(LineEffect.UpdateEffect))]
-    internal class LineEffect_UpdateEffect
+    [HarmonyPatch(typeof(RotateToTarget), nameof(RotateToTarget.ApplyRotation))]
+    internal static class RotateToTarget_ApplyRotation
     {
         [HarmonyPrefix]
-        internal static bool Prefix(LineEffect __instance)
+        internal static bool Prefix(RotateToTarget __instance)
         {
-            if (__instance.rotateToPointer?.dartlingMaintainLastPos?.tower != null)
-            {
-                if (__instance.rotateToPointer.dartlingMaintainLastPos.tower.TargetType.intID != -1 &&
-                    __instance.rotateToPointer.attack.target.bloon != null &&
-                    !__instance.lineEffectModel.isLineDisplayEndless)
-                {
-                    __instance.targetMagnitude =
-                        __instance.rotateToPointer.attack.target.bloon.Position.Distance(__instance.rotateToPointer
-                            .dartlingMaintainLastPos.tower.Position) -
-                        20;
-                }
-            }
+            var attack = __instance.attack;
+            if (!ModContent.GetInstance<DartlingEmpowerment>().Enabled ||
+                !attack.activeTargetSupplier.Is(out var target) ||
+                !attack.HasAttackBehavior<RotateToPointer>() ||
+                !attack.HasAttackBehavior<RotateToTarget>()) return true;
 
-            return true;
+            var targetsBloon = target.Is<TargetFirst>() ||
+                               target.Is<TargetLast>() ||
+                               target.Is<TargetClose>() ||
+                               target.Is<TargetStrong>() ||
+                               target.Is<TargetCamo>();
+
+            return targetsBloon;
         }
     }
 
@@ -66,28 +74,6 @@ public static class MiscPatches
             }
 
             return true;
-        }
-    }
-
-    [HarmonyPatch(typeof(InputManager), nameof(InputManager.GetRangeMeshes))]
-    internal static class InputManager_GetRangeMeshes
-    {
-        [HarmonyPostfix]
-        private static void Postfix(InputManager __instance, TowerModel towerModel,
-            Vector3 position, ref Il2CppSystem.Collections.Generic.List<Mesh> __result)
-        {
-            if (towerModel != null &&
-                towerModel.baseId == TowerType.BeastHandler &&
-                towerModel.tier > 0 &&
-                ModContent.GetInstance<CarryABigStick>().Enabled)
-            {
-                
-                var mesh = RangeMesh.GetMeshStatically(__instance.Sim, position, towerModel.GetAttackModel().range,
-                    towerModel.ignoreBlockers);
-                mesh.isValid = true;
-                mesh.position = position;
-                __result.Add(mesh);
-            }
         }
     }
 }

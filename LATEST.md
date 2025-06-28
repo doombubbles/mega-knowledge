@@ -1,1 +1,3 @@
-- Reworked the Spike Factory Mega Knowledge to just be "Spike Factories choose the spot where their spikes land." because of side effects that the pierce changes were having
+- Fixed for v49
+- Fixed some bugs with Mortar and Dartling empowerment
+- Reworked the Spike Factory Mega Knowledge to be "Spikes R Us: Once per round, Spike Factories emit a permanent Road Spikes power on the track. It does extra damage based on the tier of the Spike Factory."

@@ -9,7 +9,7 @@ namespace MegaKnowledge.MegaKnowledges.Primary;
 public class TackAttack : MegaKnowledge
 {
     public override string TowerId => TowerType.TackShooter;
-    public override string Description => "Tack Shooter attacks constantly, and its projectiles travel farther.";
+    public override string Description => "Tack Shooters' attack constantly, and their projectiles travel farther.";
     public override int Offset => 0;
 
     public override void Apply(TowerModel model)

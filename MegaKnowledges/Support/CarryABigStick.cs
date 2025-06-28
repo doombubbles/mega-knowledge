@@ -22,6 +22,7 @@ public class CarryABigStick : MegaKnowledge
         var attackModel = model.GetAttackModel();
         attackModel.AddWeapon(weapon);
         attackModel.range = baseAttack.range;
+        attackModel.drawRangeCircle = true;
 
         // Fish upgrades give attack speed and splash size
         weapon.Rate /= 1 + model.tiers[0] * model.tiers[0] * .25f;

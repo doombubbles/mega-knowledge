@@ -9,5 +9,10 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
-    <Import Project="..\btd6.targets" />
+    <Import Project="..\btd6.targets"/>
+
+    <ItemGroup>
+        <Compile Remove="GenerateReadme.cs" Condition="'$(Configuration)' != 'Debug'"/>
+    </ItemGroup>
+
 </Project>

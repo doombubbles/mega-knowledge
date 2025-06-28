@@ -8,6 +8,9 @@ using BTD_Mod_Helper.Api.ModOptions;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Gameplay.Mods;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using MegaKnowledge;
@@ -20,7 +23,7 @@ namespace MegaKnowledge;
 public class MegaKnowledgeMod : BloonsTD6Mod
 {
     public static MelonPreferences_Category MegaKnowledgeCategory;
-    
+
     public static readonly ModSettingBool OpKnowledge = new(false)
     {
         description = "Re-enables the old OP behavior of many MegaKnowledges before they were rebalanced",
@@ -55,13 +58,16 @@ public class MegaKnowledgeMod : BloonsTD6Mod
 
         if (knowledgeDisabled) return;
 
-        foreach (var towerModel in result.towers)
-        {
-            var megaKnowledges = ModContent.GetContent<MegaKnowledge>()
-                .Where(megaKnowledge => megaKnowledge.Enabled && towerModel.baseId == megaKnowledge.TowerId);
+        MegaKnowledge.currentGameModel = result;
 
-            foreach (var megaKnowledge in megaKnowledges)
+        var megaKnowledges = ModContent.GetContent<MegaKnowledge>().Where(megaKnowledge => megaKnowledge.Enabled);
+
+        foreach (var megaKnowledge in megaKnowledges)
+        {
+            foreach (var towerModel in result.GetTowersWithBaseId(megaKnowledge.TowerId))
             {
+                if (towerModel.isParagon) continue;
+
                 try
                 {
                     megaKnowledge.Apply(towerModel);
@@ -72,6 +78,35 @@ public class MegaKnowledgeMod : BloonsTD6Mod
                     ModHelper.Warning<MegaKnowledgeMod>(e);
                 }
             }
+        }
+    }
+
+
+    public static void AddAllTargets(AttackModel attackModel)
+    {
+        var prevTargets = attackModel.GetBehaviors<TargetSupplierModel>().ToList();
+
+        attackModel.AddBehavior(new TargetFirstModel("", true, false));
+        attackModel.AddBehavior(new TargetLastModel("", true, false));
+        attackModel.AddBehavior(new TargetCloseModel("", true, false));
+        attackModel.AddBehavior(new TargetStrongModel("", true, false));
+
+        foreach (var target in prevTargets)
+        {
+            attackModel.RemoveBehavior(target);
+            attackModel.AddBehavior(target);
+        }
+    }
+
+    public static void UpdatePointer(AttackModel attackModel)
+    {
+        var pointer = attackModel.GetBehavior<RotateToPointerModel>();
+        attackModel.AddBehavior(new RotateToTargetModel("", false, false, pointer.rotateOnlyOnEmit, 0,
+            pointer.rotateTower, false));
+
+        if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
+        {
+            lineEffectModel.useRotateToPointer = false;
         }
     }
 }

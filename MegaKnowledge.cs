@@ -1,6 +1,7 @@
 ﻿using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper.Api;
+using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.TowerSets;
 using MelonLoader;
 using static Il2CppAssets.Scripts.Models.TowerSets.TowerSet;
@@ -32,6 +33,8 @@ public abstract class MegaKnowledge : NamedModContent
 
         setting = MegaKnowledgeMod.MegaKnowledgeCategory.CreateEntry(Name, false, DisplayName, Description);
     }
+
+    internal static GameModel currentGameModel;
 
     public abstract void Apply(TowerModel model);
 

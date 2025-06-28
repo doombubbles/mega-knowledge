@@ -1,5 +1,4 @@
-# All Mega Knowledge Effects
-<h2>Primary</h2>
+# All Mega Knowledge Effects<h2>Primary</h2>
 
 <table>
     <tr>
@@ -10,7 +9,7 @@
             <h2>Splodey Darts</h2>
         </td>
         <td>
-            Dart Monkey projectiles explode on expiration.
+            Dart Monkey projectiles for Tier 3 and below explode on expiration.
         </td>
     </tr>
     <tr>
@@ -21,7 +20,7 @@
             <h2>Double Ranga</h2>
         </td>
         <td>
-            Boomerang Monkeys throw 2 Boomerangs at a time!
+            Boomerang Monkeys tier 3 and below throw 2 Boomerangs at a time!
         </td>
     </tr>
     <tr>
@@ -32,7 +31,7 @@
             <h2>Bomb Voyage</h2>
         </td>
         <td>
-            Bomb Shooters' projectiles travel much faster and can damage any Bloon type.
+            Bomb Shooters' projectiles travel much faster, and explosions can splash damage onto Camo bloons.
         </td>
     </tr>
     <tr>
@@ -43,7 +42,7 @@
             <h2>Tack Attack</h2>
         </td>
         <td>
-            Tack Shooter attacks constantly, and its projectiles travel farther.
+            Tack Shooters' attack constantly, and their projectiles travel farther.
         </td>
     </tr>
     <tr>
@@ -68,9 +67,7 @@
             Glue Gunners' glue globs do moderate damage themselves.
         </td>
     </tr>
-</table>
-        
-<h2>Military</h2>
+</table><h2>Military</h2>
 
 <table>
     <tr>
@@ -150,9 +147,7 @@
             Dartling Gunner can attack like a regular tower.
         </td>
     </tr>
-</table>
-        
-<h2>Magic</h2>
+</table><h2>Magic</h2>
 
 <table>
     <tr>
@@ -210,9 +205,7 @@
             Druids' personal stacking buffs always have maximum effect.
         </td>
     </tr>
-</table>
-        
-<h2>Support</h2>
+</table><h2>Support</h2>
 
 <table>
     <tr>
@@ -228,13 +221,13 @@
     </tr>
     <tr>
         <td width='15%' align='center'>
-            <img alt='Spike Empowerment' src='/MegaKnowledges/Support/SpikeEmpowerment.png'>
+            <img alt='Spikes R Us' src='/MegaKnowledges/Support/SpikeEmpowerment.png'>
         </td>
         <td align='center'>
-            <h2>Spike Empowerment</h2>
+            <h2>Spikes R Us</h2>
         </td>
         <td>
-            Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.
+            Once per round, Spike Factories emit a permanent Road Spikes power on the track. It does extra damage based on the tier of the Spike Factory.
         </td>
     </tr>
     <tr>
@@ -271,4 +264,3 @@
         </td>
     </tr>
 </table>
-        

@@ -1,4 +1,3 @@
-
 <h2>Primary</h2>
 
 <table>
@@ -10,7 +9,7 @@
             <h2>Splodey Darts</h2>
         </td>
         <td>
-            Dart Monkey projectiles explode on expiration.
+            Dart Monkey projectiles for Tier 3 and below explode on expiration.
         </td>
     </tr>
     <tr>
@@ -21,7 +20,7 @@
             <h2>Double Ranga</h2>
         </td>
         <td>
-            Boomerang Monkeys throw 2 Boomerangs at a time!
+            Boomerang Monkeys tier 3 and below throw 2 Boomerangs at a time!
         </td>
     </tr>
     <tr>
@@ -32,7 +31,7 @@
             <h2>Bomb Voyage</h2>
         </td>
         <td>
-            Bomb Shooters' projectiles travel much faster and can damage any Bloon type.
+            Bomb Shooters' projectiles travel much faster, and explosions can splash damage onto Camo bloons.
         </td>
     </tr>
     <tr>
@@ -43,7 +42,7 @@
             <h2>Tack Attack</h2>
         </td>
         <td>
-            Tack Shooter attacks constantly, and its projectiles travel farther.
+            Tack Shooters' attack constantly, and their projectiles travel farther.
         </td>
     </tr>
     <tr>
@@ -69,4 +68,3 @@
         </td>
     </tr>
 </table>
-        

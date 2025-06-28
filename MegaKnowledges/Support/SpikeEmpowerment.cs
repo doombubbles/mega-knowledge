@@ -2,6 +2,8 @@
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Powers;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 
 namespace MegaKnowledge.MegaKnowledges.Support;
 
@@ -9,30 +11,33 @@ public class SpikeEmpowerment : MegaKnowledge
 {
     public override string TowerId => TowerType.SpikeFactory;
 
-    public override string Description => "Spike Factories choose the spot where their spikes land.";
+    public override string Description =>
+        "Once per round, Spike Factories emit a permanent Road Spikes power on the track. " +
+        "It does extra damage based on the tier of the Spike Factory.";
 
     public override int Offset => 400;
 
+    public override string DisplayName => "Spikes R Us";
+
     public override void Apply(TowerModel model)
     {
-        model.towerSelectionMenuThemeId = TowerType.MortarMonkey;
+        var proj = currentGameModel.GetPowerWithName("RoadSpikes")
+            .GetBehavior<RoadSpikesModel>().projectileModel
+            .Duplicate();
 
-        model.GetAttackModel().RemoveBehavior<TargetTrackModel>();
-        model.GetAttackModel().RemoveBehavior<SmartTargetTrackModel>();
-        model.GetAttackModel().RemoveBehavior<CloseTargetTrackModel>();
-        model.GetAttackModel().RemoveBehavior<FarTargetTrackModel>();
+        proj.GetBehavior<DamageModel>().damage += model.tier * model.tier;
 
+        var attackModel = model.GetAttackModel();
+        var weapon = attackModel.weapons[0].Duplicate(Name);
 
-        var targetSelectedPointModel = model.GetAttackModel().GetBehavior<TargetSelectedPointModel>();
-        if (targetSelectedPointModel == null)
-        {
-            var tspm = new TargetSelectedPointModel("TargetSelectedPointModel_", true,
-                false, CreatePrefabReference("f786dd2ad0e3e8649a8ff0ac9f8cc6fb"), 1, "",
-                !MegaKnowledgeMod.OpKnowledge, !MegaKnowledgeMod.OpKnowledge, CreatePrefabReference("d053160180f53da43be4f9972ee1497a"),
-                true, null, true);
-            model.GetAttackModel().AddBehavior(tspm);
-        }
+        proj.AddBehavior(weapon.GetDescendant<ArriveAtTargetModel>());
+        proj.AddBehavior(weapon.GetDescendant<ScaleProjectileModel>());
+        proj.AddBehavior(weapon.GetDescendant<HeightOffsetProjectileModel>());
 
-        model.UpdateTargetProviders();
+        weapon.SetProjectile(proj);
+
+        weapon.AddBehavior(new EmissionsPerRoundFilterModel("", 1));
+
+        attackModel.AddWeapon(weapon);
     }
 }

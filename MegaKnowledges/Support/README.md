@@ -1,4 +1,3 @@
-
 <h2>Support</h2>
 
 <table>
@@ -15,13 +14,13 @@
     </tr>
     <tr>
         <td width='15%' align='center'>
-            <img alt='Spike Empowerment' src='/MegaKnowledges/Support/SpikeEmpowerment.png'>
+            <img alt='Spikes R Us' src='/MegaKnowledges/Support/SpikeEmpowerment.png'>
         </td>
         <td align='center'>
-            <h2>Spike Empowerment</h2>
+            <h2>Spikes R Us</h2>
         </td>
         <td>
-            Spike Factories choose the spot where their spikes land, and spikes damage Bloons while traveling.
+            Once per round, Spike Factories emit a permanent Road Spikes power on the track. It does extra damage based on the tier of the Spike Factory.
         </td>
     </tr>
     <tr>
@@ -58,4 +57,3 @@
         </td>
     </tr>
 </table>
-        

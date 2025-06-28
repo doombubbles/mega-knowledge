@@ -1,4 +1,5 @@
 ﻿using System;
+using BTD_Mod_Helper.Api.Enums;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
@@ -31,8 +32,8 @@ public class GorillaGlue : MegaKnowledge
             var damageModel = projectileModel.GetDamageModel();
             if (damageModel == null)
             {
-                damageModel = new DamageModel("DamageModel_", amount, 0f, true, false, true, BloonProperties.None,
-                    BloonProperties.None, false);
+                damageModel = new DamageModel("", amount, 0f, true, false, true, BloonProperties.None,
+                    BloonProperties.None, false, false);
                 projectileModel.AddBehavior(damageModel);
             }
             else
@@ -40,11 +41,10 @@ public class GorillaGlue : MegaKnowledge
                 damageModel.damage += amount;
             }
 
-            if (model.appliedUpgrades.Contains("MOAB Glue"))
+            if (model.appliedUpgrades.Contains(UpgradeType.MOABGlue))
             {
                 var damageModifierForTagModel =
-                    new DamageModifierForTagModel("DamageModifierForTagModel_", "Moabs", 1.0f, amount * 9, false,
-                        true);
+                    new DamageModifierForTagModel("", BloonTag.Moabs, 1.0f, amount * 9, false, true);
                 projectileModel.AddBehavior(damageModifierForTagModel);
 
                 projectileModel.hasDamageModifiers = true;
