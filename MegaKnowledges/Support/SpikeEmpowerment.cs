@@ -21,7 +21,7 @@ public class SpikeEmpowerment : MegaKnowledge
 
     public override void Apply(TowerModel model)
     {
-        var proj = currentGameModel.GetPowerWithName("RoadSpikes")
+        var proj = currentGameModel.GetPowerWithId("RoadSpikes")
             .GetBehavior<RoadSpikesModel>().projectileModel
             .Duplicate();
 

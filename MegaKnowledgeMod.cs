@@ -64,7 +64,7 @@ public class MegaKnowledgeMod : BloonsTD6Mod
 
         foreach (var megaKnowledge in megaKnowledges)
         {
-            foreach (var towerModel in result.GetTowersWithBaseId(megaKnowledge.TowerId))
+            foreach (var towerModel in result.GetTowersWithBaseId(megaKnowledge.TowerId).AsIEnumerable())
             {
                 if (towerModel.isParagon) continue;
 
