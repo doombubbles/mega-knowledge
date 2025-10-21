@@ -35,29 +35,29 @@ public class CrystalBall : MegaKnowledge
             if (attackModel.GetBehavior<TargetFirstPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetFirstPrioCamoModel>();
-                attackModel.AddBehavior(new TargetFirstSharedRangeModel("TargetFirstSharedRangeModel_",
-                    true, true, false, false));
+                attackModel.AddBehavior(new TargetFirstSharedRangeModel("",
+                    true, true, false, false, false));
             }
 
             if (attackModel.GetBehavior<TargetLastPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetLastPrioCamoModel>();
-                attackModel.AddBehavior(new TargetLastSharedRangeModel("TargetLastSharedRangeModel_",
-                    true, true, false, false));
+                attackModel.AddBehavior(new TargetLastSharedRangeModel("",
+                    true, true, false, false, false));
             }
 
             if (attackModel.GetBehavior<TargetClosePrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetClosePrioCamoModel>();
-                attackModel.AddBehavior(new TargetCloseSharedRangeModel("TargetCloseSharedRangeModel_",
-                    true, true, false, false));
+                attackModel.AddBehavior(new TargetCloseSharedRangeModel("",
+                    true, true, false, false, false));
             }
 
             if (attackModel.GetBehavior<TargetStrongPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetStrongPrioCamoModel>();
-                attackModel.AddBehavior(new TargetStrongSharedRangeModel("TargetStrongSharedRangeModel_",
-                    true, true, false, false));
+                attackModel.AddBehavior(new TargetStrongSharedRangeModel("",
+                    true, true, false, false, false));
             }
 
             if (!MegaKnowledgeMod.OpKnowledge)
