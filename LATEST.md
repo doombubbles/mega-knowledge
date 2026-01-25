@@ -1,1 +1,1 @@
-- Fixed for v51
+- Fixed Ace Hardware mega knowledge for v52

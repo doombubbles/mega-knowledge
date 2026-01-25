@@ -4,7 +4,7 @@
         <RootNamespace>MegaKnowledge</RootNamespace>
         <Configurations>Debug;Release</Configurations>
         <AssemblyName>MegaKnowledge</AssemblyName>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>preview</LangVersion>
         <Optimize>False</Optimize>
         <DebugType>embedded</DebugType>
     </PropertyGroup>
