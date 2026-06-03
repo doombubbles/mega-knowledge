@@ -10,11 +10,13 @@ namespace MegaKnowledge;
 
 public abstract class MegaKnowledge : NamedModContent
 {
+    internal static bool? overrideEnabled;
+
     private MelonPreferences_Entry<bool> setting;
 
     public bool Enabled
     {
-        get => setting?.Value == true;
+        get => overrideEnabled ?? setting?.Value == true;
         set => setting.Value = value;
     }
 

@@ -20,18 +20,34 @@ public class TheBigThree : MegaKnowledge
     {
         if (model.tier < 3) return;
 
-        var supeFilter = new FilterInBaseTowerIdModel("Filter_Supes", new[] { TowerType.SuperMonkey });
+        var supeFilter = FilterInBaseTowerIdModel.Create(new()
+        {
+            name = "Filter_Supes",
+            baseIds = new[] { TowerType.SuperMonkey }
+        });
 
         var tier = MegaKnowledgeMod.OpKnowledge ? model.tier : model.tier - 2;
 
         var buffs = new[]
         {
-            new RateSupportModel("", 1f - tier * .05f, true, "TheBigThree1", false, 0, null, null, null)
-                .ApplyBuffIcon<SunAvatarIcon>(),
-            new RangeSupportModel("", true, tier * .05f, 0f, "TheBigThree2", null, false, null, null)
-                .ApplyBuffIcon<RoboMonkeyIcon>(),
-            new PierceSupportModel("", true, model.tier, "TheBigThree3", null, false, null, null)
-                .ApplyBuffIcon<DarkKnightIcon>()
+            RateSupportModel.Create(new()
+            {
+                multiplier = 1f - tier * .05f,
+                isUnique = true,
+                mutatorId = "TheBigThree1"
+            }).ApplyBuffIcon<SunAvatarIcon>(),
+            RangeSupportModel.Create(new()
+            {
+                isUnique = true,
+                multiplier = tier * .05f,
+                mutatorId = "TheBigThree2"
+            }).ApplyBuffIcon<RoboMonkeyIcon>(),
+            PierceSupportModel.Create(new()
+            {
+                isUnique = true,
+                pierce = model.tier,
+                mutatorId = "TheBigThree3"
+            }).ApplyBuffIcon<DarkKnightIcon>()
         };
 
         for (var path = 0; path < 3; path++)
@@ -48,10 +64,15 @@ public class TheBigThree : MegaKnowledge
                 buffForPath.filters = new TowerFilterModel[]
                 {
                     supeFilter.Duplicate(),
-                    new FilterInTowerTiersModel("",
-                        otherPath == 0 ? 3 : 0, 5,
-                        otherPath == 1 ? 3 : 0, 5,
-                        otherPath == 2 ? 3 : 0, 5)
+                    FilterInTowerTiersModel.Create(new()
+                    {
+                        path1MinTier = otherPath == 0 ? 3 : 0,
+                        path1MaxTier = 5,
+                        path2MinTier = otherPath == 1 ? 3 : 0,
+                        path2MaxTier = 5,
+                        path3MinTier = otherPath == 2 ? 3 : 0,
+                        path3MaxTier = 5
+                    })
                 };
                 model.AddBehavior(buffForPath);
             }

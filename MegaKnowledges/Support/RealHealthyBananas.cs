@@ -17,8 +17,13 @@ public class RealHealthyBananas : MegaKnowledge
         var bonusLivesPerRoundModel = model.GetBehavior<BonusLivesPerRoundModel>();
         if (bonusLivesPerRoundModel == null)
         {
-            model.AddBehavior(new BonusLivesPerRoundModel("BonusLivesPerRoundModel_HealthyBananas", amount, 
-                1.25f, CreatePrefabReference("eb70b6823aec0644c81f873e94cb26cc")));
+            model.AddBehavior(BonusLivesPerRoundModel.Create(new()
+            {
+                name = "BonusLivesPerRoundModel_HealthyBananas",
+                amount = amount,
+                lifespan = 1.25f,
+                assetId = CreatePrefabReference("eb70b6823aec0644c81f873e94cb26cc")
+            }));
         }
         else
         {

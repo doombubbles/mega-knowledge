@@ -37,16 +37,33 @@ public class SplodeyDarts : MegaKnowledge
                 pb.projectile.GetDescendant<FilterInvisibleModel>().isActive = false;
             }
 
-            var behavior = new CreateProjectileOnExhaustFractionModel("SplodeyDarts",
-                pb.projectile, pb.emission, 1f, 1f, true, false, false);
+            var behavior = CreateProjectileOnExhaustFractionModel.Create(new()
+            {
+                name = "SplodeyDarts",
+                projectile = pb.projectile,
+                emission = pb.emission,
+                fraction = 1f,
+                durationfraction = 1f,
+                canCreateInBetweenRounds = true
+            });
             projectileModel.AddBehavior(behavior);
 
-            var soundBehavior = new CreateSoundOnProjectileExhaustModel("SplodeyDarts",
-                sound.sound1, sound.sound2, sound.sound3, sound.sound4, sound.sound5);
+            var soundBehavior = CreateSoundOnProjectileExhaustModel.Create(new()
+            {
+                name = "SplodeyDarts",
+                sound1 = sound.sound1,
+                sound2 = sound.sound2,
+                sound3 = sound.sound3,
+                sound4 = sound.sound4,
+                sound5 = sound.sound5
+            });
             projectileModel.AddBehavior(soundBehavior);
 
-            var eB = new CreateEffectOnExhaustedModel("SplodeyDarts",
-                CreatePrefabReference(""), 0f, Fullscreen.No, false, effect.effectModel);
+            var eB = CreateEffectOnExhaustedModel.Create(new()
+            {
+                name = "SplodeyDarts",
+                effectModel = effect.effectModel
+            });
             projectileModel.AddBehavior(eB);
 
             if (!MegaKnowledgeMod.OpKnowledge)

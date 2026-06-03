@@ -1,1 +1,2 @@
-- Recompiled for BTD6 v54
+- Updated for BTD6 v55
+- Internally switched to using some newer Mod Helper extensions

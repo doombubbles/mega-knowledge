@@ -19,8 +19,19 @@ public class DoubleRanga : MegaKnowledge
         if (model.tier > 3 && !MegaKnowledgeMod.OpKnowledge) return;
         
         var weaponModel = model.GetAttackModel().weapons[0];
-        var random = new RandomArcEmissionModel("RandomArcEmissionModel_", 2, 0, 0, 30, 1, null);
-        var eM = new ArcEmissionModel("ArcEmissionModel_", 2, 0, 30, null, false, false);
+        var random = RandomArcEmissionModel.Create(new()
+        {
+            name = "RandomArcEmissionModel_",
+            count = 2,
+            randomAngle = 30,
+            startOffset = 1
+        });
+        var eM = ArcEmissionModel.Create(new()
+        {
+            name = "ArcEmissionModel_",
+            Count = 2,
+            angle = 30
+        });
         weaponModel.emission = eM;
     }
 }

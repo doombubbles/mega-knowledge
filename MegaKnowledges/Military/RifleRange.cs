@@ -15,11 +15,24 @@ public class RifleRange : MegaKnowledge
     public override void Apply(TowerModel model)
     {
         var damage = model.GetWeapon().projectile.GetDamageModel().damage;
-        model.GetWeapon().AddBehavior(new CritMultiplierModel("", damage * 2, 1, 6,
-            new DisplayModel("Crit", CreatePrefabReference("252e82e70578330429a758339e10fd25"), 0, DisplayCategory.Effect),
-            true));
+        model.GetWeapon().AddBehavior(CritMultiplierModel.Create(new()
+        {
+            damage = damage * 2,
+            lower = 1,
+            upper = 6,
+            displayModel = DisplayModel.Create(new()
+            {
+                name = "Crit",
+                display = CreatePrefabReference("252e82e70578330429a758339e10fd25"),
+                category = DisplayCategory.Effect
+            }),
+            distributeToChildren = true
+        }));
 
-        model.GetWeapon().projectile.AddBehavior(new ShowTextOnHitModel("",
-            CreatePrefabReference("3dcdbc19136c60846ab944ada06695c0"), 0.5f, false, ""));
+        model.GetWeapon().projectile.AddBehavior(ShowTextOnHitModel.Create(new()
+        {
+            assetId = CreatePrefabReference("3dcdbc19136c60846ab944ada06695c0"),
+            lifespan = 0.5f
+        }));
     }
 }

@@ -16,8 +16,13 @@ public class IceSeeYou : MegaKnowledge
 
     public override void Apply(TowerModel model)
     {
-        var behavior = new RemoveBloonModifiersModel("RemoveBloonModifiersModel_", false, true, false, false, false,
-            new Il2CppStringArray(0), new Il2CppStringArray(0));
+        var behavior = RemoveBloonModifiersModel.Create(new()
+        {
+            name = "RemoveBloonModifiersModel_",
+            cleanseCamo = true,
+            bloonTagExcludeList = new string[0],
+            bloonTagExplicitList = new string[0]
+        });
         foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList())
         {
             projectileModel.AddBehavior(behavior.Duplicate());

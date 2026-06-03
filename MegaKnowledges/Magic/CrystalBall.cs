@@ -35,29 +35,41 @@ public class CrystalBall : MegaKnowledge
             if (attackModel.GetBehavior<TargetFirstPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetFirstPrioCamoModel>();
-                attackModel.AddBehavior(new TargetFirstSharedRangeModel("",
-                    true, true, false, false, false));
+                attackModel.AddBehavior(TargetFirstSharedRangeModel.Create(new()
+                {
+                    isSelectable = true,
+                    isSharedRangeEnabled = true
+                }));
             }
 
             if (attackModel.GetBehavior<TargetLastPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetLastPrioCamoModel>();
-                attackModel.AddBehavior(new TargetLastSharedRangeModel("",
-                    true, true, false, false, false));
+                attackModel.AddBehavior(TargetLastSharedRangeModel.Create(new()
+                {
+                    isSelectable = true,
+                    isSharedRangeEnabled = true
+                }));
             }
 
             if (attackModel.GetBehavior<TargetClosePrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetClosePrioCamoModel>();
-                attackModel.AddBehavior(new TargetCloseSharedRangeModel("",
-                    true, true, false, false, false));
+                attackModel.AddBehavior(TargetCloseSharedRangeModel.Create(new()
+                {
+                    isSelectable = true,
+                    isSharedRangeEnabled = true
+                }));
             }
 
             if (attackModel.GetBehavior<TargetStrongPrioCamoModel>() != null)
             {
                 attackModel.RemoveBehavior<TargetStrongPrioCamoModel>();
-                attackModel.AddBehavior(new TargetStrongSharedRangeModel("",
-                    true, true, false, false, false));
+                attackModel.AddBehavior(TargetStrongSharedRangeModel.Create(new()
+                {
+                    isSelectable = true,
+                    isSharedRangeEnabled = true
+                }));
             }
 
             if (!MegaKnowledgeMod.OpKnowledge)
@@ -68,8 +80,10 @@ public class CrystalBall : MegaKnowledge
 
         foreach (var weaponModel in model.GetWeapons())
         {
-            weaponModel.emission.AddBehavior(
-                new EmissionCamoIfTargetIsCamoModel("EmissionCamoIfTargetIsCamoModel_CamoEmissionBehavior"));
+            weaponModel.emission.AddBehavior(EmissionCamoIfTargetIsCamoModel.Create(new()
+            {
+                name = "EmissionCamoIfTargetIsCamoModel_CamoEmissionBehavior"
+            }));
         }
 
         foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList())

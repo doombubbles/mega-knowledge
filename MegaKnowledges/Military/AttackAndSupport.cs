@@ -23,15 +23,28 @@ public class AttackAndSupport : MegaKnowledge
 
         if (submerge.heroXpScale > 1.0)
         {
-            model.AddBehavior(new HeroXpScaleSupportModel("HeroXpScaleSupportModel_", true, submerge.heroXpScale,
-                null, submerge.buffLocsName, submerge.buffIconName));
+            model.AddBehavior(HeroXpScaleSupportModel.Create(new()
+            {
+                name = "HeroXpScaleSupportModel_",
+                isUnique = true,
+                heroXpScale = submerge.heroXpScale,
+                buffLocsName = submerge.buffLocsName,
+                buffIconName = submerge.buffIconName
+            }));
         }
 
         if (submerge.abilityCooldownSpeedScale > 1.0)
         {
-            model.AddBehavior(new AbilityCooldownScaleSupportModel("AbilityCooldownScaleSupportModel_",
-                true, submerge.abilityCooldownSpeedScale, true, false, null,
-                submerge.buffLocsName, submerge.buffIconName, false, submerge.supportMutatorPriority));
+            model.AddBehavior(AbilityCooldownScaleSupportModel.Create(new()
+            {
+                name = "AbilityCooldownScaleSupportModel_",
+                isUnique = true,
+                abilityCooldownSpeedScale = submerge.abilityCooldownSpeedScale,
+                affectsOnlyWater = true,
+                buffLocsName = submerge.buffLocsName,
+                buffIconName = submerge.buffIconName,
+                mutatorPriority = submerge.supportMutatorPriority
+            }));
         }
 
         model.RemoveBehavior<SubmergeModel>();
@@ -48,6 +61,11 @@ public class AttackAndSupport : MegaKnowledge
             attackModel.RemoveBehavior<SubmergedTargetModel>();
         }
 
-        model.AddBehavior(new CreateEffectAfterTimeModel("CreateEffectAfterTimeModel_", submergeEffect, 0f, true));
+        model.AddBehavior(CreateEffectAfterTimeModel.Create(new()
+        {
+            name = "CreateEffectAfterTimeModel_",
+            effectModel = submergeEffect,
+            useRoundTime = true
+        }));
     }
 }

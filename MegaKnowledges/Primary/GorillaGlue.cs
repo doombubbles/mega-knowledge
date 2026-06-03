@@ -32,8 +32,7 @@ public class GorillaGlue : MegaKnowledge
             var damageModel = projectileModel.GetDamageModel();
             if (damageModel == null)
             {
-                damageModel = new DamageModel("", amount, 0f, true, false, true, BloonProperties.None,
-                    BloonProperties.None, false, false);
+                damageModel = DamageModel.Create(new() { damage = amount });
                 projectileModel.AddBehavior(damageModel);
             }
             else
@@ -43,8 +42,12 @@ public class GorillaGlue : MegaKnowledge
 
             if (model.appliedUpgrades.Contains(UpgradeType.MOABGlue))
             {
-                var damageModifierForTagModel =
-                    new DamageModifierForTagModel("", BloonTag.Moabs, 1.0f, amount * 9, false, true);
+                var damageModifierForTagModel = DamageModifierForTagModel.Create(new()
+                {
+                    tag = BloonTag.Moabs,
+                    damageAddative = amount * 9,
+                    applyOverMaxDamage = true
+                });
                 projectileModel.AddBehavior(damageModifierForTagModel);
 
                 projectileModel.hasDamageModifiers = true;

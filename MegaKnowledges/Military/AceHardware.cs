@@ -17,7 +17,7 @@ public class AceHardware : MegaKnowledge
     public override void Apply(TowerModel model)
     {
         var towerModel = Game.instance.model.GetTower(TowerType.MonkeyAce, 0, 0, 4);
-        var attack = towerModel.GetAttackModel("Spectre").Duplicate();
+        var attack = towerModel.GetAttackModel("Spectre").Duplicate(Name);
         var weapon = attack.weapons[0]!;
         weapon.RemoveBehavior<AlternateProjectileModel>();
         attack.range = 60 + 20 * model.tier;

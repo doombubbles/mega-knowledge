@@ -36,7 +36,7 @@ public class SpikeEmpowerment : MegaKnowledge
 
         weapon.SetProjectile(proj);
 
-        weapon.AddBehavior(new EmissionsPerRoundFilterModel("", 1));
+        weapon.AddBehavior(EmissionsPerRoundFilterModel.Create(new() { count = 1 }));
 
         attackModel.AddWeapon(weapon);
     }

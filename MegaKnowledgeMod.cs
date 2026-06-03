@@ -86,10 +86,10 @@ public class MegaKnowledgeMod : BloonsTD6Mod
     {
         var prevTargets = attackModel.GetBehaviors<TargetSupplierModel>().ToList();
 
-        attackModel.AddBehavior(new TargetFirstModel("", true, false));
-        attackModel.AddBehavior(new TargetLastModel("", true, false));
-        attackModel.AddBehavior(new TargetCloseModel("", true, false));
-        attackModel.AddBehavior(new TargetStrongModel("", true, false));
+        attackModel.AddBehavior(TargetFirstModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetLastModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetCloseModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetStrongModel.Create(new() { isSelectable = true }));
 
         foreach (var target in prevTargets)
         {
@@ -101,8 +101,11 @@ public class MegaKnowledgeMod : BloonsTD6Mod
     public static void UpdatePointer(AttackModel attackModel)
     {
         var pointer = attackModel.GetBehavior<RotateToPointerModel>();
-        attackModel.AddBehavior(new RotateToTargetModel("", false, false, pointer.rotateOnlyOnEmit, 0,
-            pointer.rotateTower, false));
+        attackModel.AddBehavior(RotateToTargetModel.Create(new()
+        {
+            rotateOnlyOnThrow = pointer.rotateOnlyOnEmit,
+            rotateTower = pointer.rotateTower
+        }));
 
         if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
         {
